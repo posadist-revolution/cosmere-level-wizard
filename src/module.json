@@ -1,0 +1,45 @@
+{
+  "id": "cosmere-level-wizard",
+  "title": "Cosmere Level Wizard",
+  "description": "",
+  "version": "0.0.1",
+  "library": "false",
+  "manifestPlusVersion": "1.2.0",
+  "compatibility": {
+    "minimum": 13,
+    "verified": 13
+  },
+  "authors": [
+    {
+      "name": "posadist-revolution",
+      "url": "https://github.com/posadist-revolution"
+    }
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "cosmere-rpg",
+        "type": "system",
+        "manifest": "https://raw.githubusercontent.com/the-metalworks/cosmere-rpg/main/src/system.json",
+        "compatibility": {
+          "verified": "2.0.3"
+        }
+      }
+    ]
+  },
+  "esmodules": [
+    "index.js"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "url": "https://github.com/posadist-revolution/cosmere-level-wizard",
+  "manifest": "https://raw.githubusercontent.com/posadist-revolution/cosmere-level-wizard/src/module.json",
+  "download": "https://github.com/posadist-revolution/cosmere-level-wizard/releases/download/release-0.0.1/cosmere-level-wizard-release-0.0.1.zip",
+  "license": "LICENSE",
+  "readme": "README.md"
+}
