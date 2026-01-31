@@ -1,6 +1,12 @@
 <div class="mod">
     <span class="operator">+</span>
-    <span class="val">{{derived skill.mod }}</span>
+    {{#with (levelingGetFromKey @root.choices.skills skill.id) as |skillChoiceCount|}}
+    {{#if (gt (skillChoiceCount) 0)}}
+    <span class="val choice">{{add (derived ../skill.mod) skillChoiceCount}}</span>
+    {{else}}
+    <span class="val">{{derived ../skill.mod }}</span>
+    {{/if}}
+    {{/with}}
 </div>
 <a class="name">
     <span>{{ localize skill.label }}</span>

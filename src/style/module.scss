@@ -552,6 +552,10 @@
             .val {
                 color: var(--cosmere-color-text-main);
             }
+
+            .val.choice{
+                color: var(--cosmere-color-text-accent);
+            }
         }
 
         .name {
