@@ -96,8 +96,6 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
             this.skillRanksRemaining += this.advancementData.skillRanks;
             this.choices.skills = {};
             for(const skillId in this.actor.system.skills){
-                console.log(this.actor.system.skills);
-                console.log(`${MODULE_ID}: Adding skill with ID: ${skillId}`);
                 this.choices.skills[skillId] = 0;
             }
         }
@@ -108,9 +106,9 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
                 this.choices.skills[skillId] = 0;
             }
         }
-        console.log(`${MODULE_ID}: Skill ranks remaining: ${this.skillRanksRemaining}`);
-        console.log(`${MODULE_ID}: Choice skills:`);
-        console.log(this.choices.skills);
+        // console.log(`${MODULE_ID}: Skill ranks remaining: ${this.skillRanksRemaining}`);
+        // console.log(`${MODULE_ID}: Choice skills:`);
+        // console.log(this.choices.skills);
 
         // Find starting attributePointsRemaining
         this.attributePointsRemaining = 0;
@@ -121,7 +119,7 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
                 this.choices.attributes[attrId] = 0;
             }
         }
-        console.log(`${MODULE_ID}: Attribute points remaining: ${this.attributePointsRemaining}`);
+        // console.log(`${MODULE_ID}: Attribute points remaining: ${this.attributePointsRemaining}`);
 
         // Find starting talentsRemaining
         this.talentsRemaining = 0;
@@ -129,7 +127,7 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
             this.talentsRemaining += this.advancementData.talents;
             this.choices.talent = "";
         }
-        console.log(`${MODULE_ID}: Talents remaining: ${this.talentsRemaining}`);
+        // console.log(`${MODULE_ID}: Talents remaining: ${this.talentsRemaining}`);
 
     }
 
@@ -147,15 +145,6 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
         const skillId = $(event.target!)
             .closest('[data-id]')
             .data('id');
-
-        console.log(`${MODULE_ID}: currentTarget:`);
-        console.log($(event.target!));
-        console.log(`${MODULE_ID}: currentTarget.closest:`);
-        console.log($(event.target!).closest('[data-id]'));
-        console.log(`${MODULE_ID}: currentTarget.closest.data:`);
-        console.log($(event.target!).closest('[data-id]').data('id'));
-        console.log(`${MODULE_ID}: Adjusting rank of skill: ${skillId}`);
-        console.log(`${MODULE_ID}: Relevant starting rank of skill: ${skillId}`);
 
         if (!skillId) return;
 
