@@ -1,4 +1,5 @@
 <div class="mod">
+    {{!-- TODO: Add Attribute Increases to modifier changes --}}
     <span class="operator">+</span>
     {{#with (levelingGetFromKey @root.choices.skills skill.id) as |skillChoiceCount|}}
     {{#if (gt (skillChoiceCount) 0)}}
