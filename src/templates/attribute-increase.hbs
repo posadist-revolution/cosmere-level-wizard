@@ -9,5 +9,5 @@
         <strong class="remaining-count">{{@root.attributePointsRemaining}}</strong>
     </div>
     {{!-- Attribute Groups --}}
-    {{> attributes}}
+    {{> cosmere-attributes (levelingAttributesContext @root.actor)}}
 </section>

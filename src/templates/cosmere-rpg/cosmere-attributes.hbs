@@ -1,5 +1,9 @@
+{{log "Attribute section"}}
+{{log this}}
+<app-actor-attributes>
 <div class="attributes attribute-groups flexrow">
     {{#each attributeGroups as |attrGroup|}}
+    {{log this}}
     <div class="attribute-group" data-id="{{attrGroup.id}}">
         {{!-- Header --}}
         <span class="label">
@@ -9,6 +13,7 @@
         {{!-- Attributes and defense --}}
         <section class="attributes flexrow">
             {{#with attrGroup.attributes.[0] as |attribute|}}
+            {{log this}}
             <div class="sheet-stack attribute" data-id="{{attribute.id}}">
                 <div class="container left">
                     <div class="background"></div>
@@ -19,16 +24,10 @@
                             <i class="fa-solid fa-bolt"></i>
                         {{/if}}
                     </span>
-                    {{#if (not @root.isEditMode)}}
                         <input class="value {{#if attribute.modified}}modified{{/if}}" type="number"
                             value="{{total}}"
                             readonly
                         >
-                    {{else}}
-                        <input class="value {{#if attribute.modified}}modified{{/if}}" type="number" min="0" max="10" step="1"
-                            name="system.attributes.{{attribute.config.key}}.value" value="{{total}}" data-total="{{total}}" data-source-value="{{attribute.source.value}}" 
-                        />
-                    {{/if}}
                 </div>
             </div>
             {{/with}}
@@ -39,13 +38,6 @@
                 <div class="container">
                     <div class="background"></div>
                     <div class="border"></div>
-                    {{#if @root.isEditMode}}
-                    <a class="config-icon" data-action="configure-defense"
-                        data-tooltip="COSMERE.Actor.Sheet.ConfigureDefense"
-                    >
-                        <i class="fa-solid fa-gear"></i>
-                    </a>
-                    {{/if}}                     
                     <span class="value">{{ defense.value }}</span>
                 </div>
             </div>
@@ -62,17 +54,11 @@
                             <i class="fa-solid fa-bolt"></i>
                         {{/if}}
                     </span>
-                    {{#if (not @root.isEditMode)}}
                     <input class="value {{#if attribute.modified}}modified{{/if}}" type="number"
                         value="{{total}}"
                         readonly
                     >
-                    {{else}}
-                    <input class="value {{#if attribute.modified}}modified{{/if}}" type="number" min="0" max="10" step="1"
-                        name="system.attributes.{{attribute.config.key}}.value" value="{{total}}" data-total="{{total}}" data-source-value="{{attribute.source.value}}"
-                    />
-                    {{/if}}
-                </div>                    
+                </div>
             </div>
             {{/with}}
         </section>
@@ -80,3 +66,4 @@
 
     {{/each}}
 </div>
+</app-actor-attributes>

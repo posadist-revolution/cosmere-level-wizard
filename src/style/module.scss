@@ -1,6 +1,12 @@
 .cosmere-level-wizard.application.dialog {
     --border-corner-svg: url('../../systems/cosmere-rpg/assets/icons/svg/sheet/border_corner.svg');
     --star-cosmere-svg: url('../../systems/cosmere-rpg/assets/icons/cosmere/svg/star_cosmere.svg');
+    --border-attribute-left-svg: url('../../systems/cosmere-rpg/assets/icons/svg/sheet/border_attribute_left.svg');
+    --mask-attribute-left-svg: url('../../systems/cosmere-rpg/assets/icons/svg/sheet/mask_attribute_left.svg');
+    --border-attribute-right-svg: url('../../systems/cosmere-rpg/assets/icons/svg/sheet/border_attribute_right.svg');
+    --mask-attribute-right-svg: url('../../systems/cosmere-rpg/assets/icons/svg/sheet/mask_attribute_right.svg');
+    --border-defense-svg: url('../../systems/cosmere-rpg/assets/icons/svg/sheet/border_defense.svg');
+    --mask-defense-svg: url('../../systems/cosmere-rpg/assets/icons/svg/sheet/mask_defense.svg');
 
 
     overflow: visible;
@@ -609,6 +615,169 @@
             padding: 0.15rem 0.4rem;
             border-radius: 10px;
             background-color: var(--cosmere-color-base-2);
+        }
+    }
+
+    .sheet-stack {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .label {
+            font-family: var(--cosmere-font-header);
+            font-size: var(--font-size-9);
+            font-weight: 600;
+            color: var(--cosmere-color-text-sub);
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+
+            .background {
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                width: 100%;
+                height: 100%;
+                background-color: var(--cosmere-color-base-2);
+            }
+
+            .border {
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                width: 100%;
+                height: 100%;
+                background-color: var(--cosmere-color-accent);
+            }
+
+            .value {
+                position: relative;
+                font-family: var(--cosmere-font-header);
+                font-weight: 600;
+                color: var(--cosmere-color-text-main);
+                z-index: 1;
+            }
+        }
+    }
+
+    app-actor-attributes {
+        .attribute-groups {
+            margin-top: 1.375rem;
+            gap: 0.75rem;
+        }
+
+        .attribute-group {
+            display: flex;
+            flex-direction: column;
+
+            > .label {
+                font-family: var(--cosmere-font-header);
+                font-size: var(--font-size-12);
+                color: var(--cosmere-color-text-sub);
+                text-transform: uppercase;
+                text-align: center;
+                margin-bottom: 0.25rem;
+            }
+
+            .attributes {
+                align-items: flex-start;
+
+                .attribute {
+                    .container {
+                        width: 58px;
+                        height: 50px;
+                        padding-top: 0.25rem;
+
+                        &.left {
+                            .background {
+                                mask: var(--mask-attribute-left-svg) no-repeat center;
+                            }
+
+                            .border {
+                                mask: var(--border-attribute-left-svg) no-repeat center;
+                            }
+                        }
+
+                        &.right {
+                            .background {
+                                mask: var(--mask-attribute-right-svg) no-repeat center;
+                            }
+
+                            .border {
+                                mask: var(--border-attribute-right-svg) no-repeat center;
+                            }
+                        }
+
+                        .title {
+                            font-family: var(--cosmere-font-normal);
+                            font-size: var(--font-size-11);
+                            font-weight: bold;
+                            text-transform: uppercase;
+                            color: var(--cosmere-color-text-sub);
+                            z-index: 1;
+                            position: relative;
+
+                            > i {
+                                position: absolute;
+                                font-size: .75em;
+                                top: 0.1em;
+                                right: -1.05em;
+                            }
+                        }
+
+                        .value {
+                            font-size: var(--font-size-24);
+                            text-align: center;
+                            height: 1.25rem;
+                            padding-top: 0.25rem;
+
+                            &.modified:not(:focus) {
+                                color: var(--cosmere-color-highlight);
+                            }
+                        }
+                    }
+
+                }
+
+                .defense {
+                    .label {
+                        font-family: var(--cosmere-font-normal);
+                        font-size: var(--font-size-11);
+                        font-weight: bold;
+                        text-transform: uppercase;
+                    }
+
+                    .container {
+                        width: 40px;
+                        height: 50px;
+
+                        .background {
+                            mask: var(--mask-defense-svg) no-repeat center;
+                        }
+
+                        .border {
+                            mask: var(--border-defense-svg) no-repeat center;
+                        }
+
+                        .config-icon {
+                            position: absolute;
+                            width: 100%;
+                            bottom: 4px;
+                            left: 0;
+                            font-size: var(--font-size-10);
+                        }
+
+                        .value {
+                            font-size: var(--font-size-20);
+                            line-height: 46px;
+                        }
+                    }
+                }
+            }
         }
     }
 }

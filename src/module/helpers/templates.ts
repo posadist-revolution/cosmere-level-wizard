@@ -1,4 +1,4 @@
-import { AttributeGroup, Skill } from "@src/declarations/cosmere-rpg/types/cosmere";
+import { Attribute, AttributeGroup, Skill } from "@src/declarations/cosmere-rpg/types/cosmere";
 import { MODULE_ID } from "../constants";
 import { AttributeGroupConfig } from "@src/declarations/cosmere-rpg/types/config";
 import { AnyRecord } from "dns";
@@ -107,6 +107,53 @@ Handlebars.registerHelper('levelingSkillContext', (actor: CosmereActor, skillId:
             pips: true,
         }
 });
+
+Handlebars.registerHelper('levelingAttributesContext', (actor: CosmereActor, skillId: Skill) =>{
+    return {
+        attributeGroups: (Object.keys(CONFIG.COSMERE.attributeGroups) as AttributeGroup[]).map((attrId) => prepareAttributeGroup(actor, attrId)),
+    }
+});
+
+function prepareAttributeGroup(actor: CosmereActor, groupId: AttributeGroup) {
+    // Get the attribute group config
+    const groupConfig = CONFIG.COSMERE.attributeGroups[groupId];
+    groupConfig.attributes.map((attrId) => prepareAttribute(actor, attrId))
+    return {
+        id: groupId,
+        config: groupConfig,
+        defense: actor.system.defenses[groupId],
+        attributes: groupConfig.attributes.map((attrId) => prepareAttribute(actor, attrId)),
+    };
+}
+
+function prepareAttribute(actor: CosmereActor, attrId: Attribute) {
+    // Get the attribute config
+    const attrConfig = CONFIG.COSMERE.attributes[attrId];
+
+    const attr = actor.system.attributes[attrId];
+    const source = (
+        actor._source as {
+            system: {
+                attributes: Record<
+                    Attribute,
+                    { value: number; bonus: number }
+                >;
+            };
+        }
+    ).system.attributes[attrId];
+
+    const total = attr.value + attr.bonus;
+    const sourceTotal = source.value + source.bonus;
+
+    return {
+        id: attrId,
+        config: attrConfig,
+        ...attr,
+        total,
+        source: source,
+        modified: total !== sourceTotal,
+    };
+}
 
 Handlebars.registerHelper('levelingGetFromKey', (record: Record<string, any>, key: string) => {
     return record[key];
