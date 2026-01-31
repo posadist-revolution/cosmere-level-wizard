@@ -1,0 +1,26 @@
+{
+    "cosmere-level-wizard": {
+        "Title": "Level Up Wizard",
+        "LevelingUp": "Leveling up from level",
+        "AttributePoints": "Attribute Points",
+        "AttributePointsDescription": "You gain {points} attribute point(s) to distribute among your attributes.",
+        "PointsRemaining": "Points Remaining",
+        "Health": "Pre-level health",
+        "HealthIncludeStrength": "You gain {health} health plus your Strength attribute.",
+        "HealthGain": "You gain {health} health.",
+        "NewHealth": "New Health Total",
+        "SkillRanks": "Skill Ranks",
+        "SkillRanksDescription": "You gain {ranks} skill rank(s) to distribute. Maximum rank per skill at this level: {max}.",
+        "RanksRemaining": "Ranks Remaining",
+        "Talents": "Talents",
+        "TalentsDescription": "You gain {count} talent(s) at this level.",
+        "TalentsNote": "Talents must be selected separately from the character sheet after leveling up.",
+        "TalentsToSelect": "Talents to Select",
+        "ChoiceTitle": "Choice: Skill Ranks or Talents",
+        "ChoiceDescription": "You may choose to gain either {count} skill rank(s) or {count} talent(s).",
+        "ChooseSkillRanks": "{count} Skill Rank(s)",
+        "ChooseTalents": "{count} Talent(s)",
+        "Cancel": "Cancel",
+        "LevelUp": "Level Up"
+    }
+}

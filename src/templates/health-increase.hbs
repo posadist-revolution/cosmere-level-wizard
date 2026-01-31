@@ -1,0 +1,14 @@
+<section class="health-section">
+    <h3>{{localize "cosmere-level-wizard.Health"}}</h3>
+    <p class="section-description">
+        {{#if healthIncludeStrength}}
+            {{localize "cosmere-level-wizard.HealthIncludeStrength" health=health}}
+        {{else}}
+            {{localize "cosmere-level-wizard.HealthGain" health=health}}
+        {{/if}}
+    </p>
+    <div class="health-preview">
+        <span>{{localize "cosmere-level-wizard.NewHealth"}}: </span>
+        <strong class="health-total">{{newHealthTotal}}</strong>
+    </div>
+</section>

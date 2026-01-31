@@ -1,0 +1,34 @@
+
+<section class="choice-section">
+    <h3>{{localize "cosmere-level-wizard.ChoiceTitle"}}</h3>
+    <p class="section-description">
+        {{localize "cosmere-level-wizard.ChoiceDescription" count=skillRanksOrTalents}}
+    </p>
+    <div class="choice-options">
+        <label class="choice-option">
+            <input
+                type="radio"
+                name="choice"
+                value="skillRanks"
+                checked
+            />
+            <span>{{localize "cosmere-level-wizard.ChooseSkillRanks" count=skillRanksOrTalents}}</span>
+        </label>
+        <label class="choice-option">
+            <input
+                type="radio"
+                name="choice"
+                value="talents"
+            />
+            <span>{{localize "cosmere-level-wizard.ChooseTalents" count=skillRanksOrTalents}}</span>
+        </label>
+    </div>
+
+    <div class="choice-content skill-ranks-choice" data-choice="skillRanks">
+        {{> skill-increase}}
+    </div>
+
+    <div class="choice-content talents-choice hidden" data-choice="talents">
+        {{> talent-selection}}
+    </div>
+</section>

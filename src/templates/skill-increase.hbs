@@ -1,0 +1,19 @@
+<section class="skill-ranks-section">
+    <h3>{{localize "cosmere-level-wizard.SkillRanks"}}</h3>
+    <p class="section-description">
+        {{localize "cosmere-level-wizard.SkillRanksDescription" ranks=skillRanks max=maxSkillRanks}}
+    </p>
+    <section class="skills">
+        {{#each @root.attributeGroups as |group|}}
+            {{app-actor-skills-group group-id=group}}
+        {{/each}}
+
+        {{#if (gt @root.actor.orphanedSkills.length 0)}}
+            {{app-actor-skills-group skills=@root.actor.orphanedSkills}}
+        {{/if}}
+    </section>
+    <div class="ranks-remaining">
+        <span>{{localize "cosmere-level-wizard.RanksRemaining"}}: </span>
+        <strong class="remaining-count">{{skillRanks}}</strong>
+    </div>
+</section>

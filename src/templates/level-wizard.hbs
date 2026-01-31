@@ -1,0 +1,40 @@
+<form class="level-wizard-form">
+    <header class="level-wizard-header">
+        <h2>{{localize "cosmere-level-wizard.Title"}}</h2>
+        <p class="level-info">
+            {{localize "cosmere-level-wizard.LevelingUp"}}
+            <strong>{{actor.system.level}}</strong> -> <strong>{{newLevel}}</strong>
+        </p>
+    </header>
+
+    {{#if attributePoints}}
+        {{> attribute-increase}}
+    {{/if}}
+
+    {{#if health}}
+        {{> health-increase}}
+    {{/if}}
+
+    {{#if skillRanksOrTalents}}
+        {{> choose-skill-or-talent}}
+    {{/if}}
+
+    {{#if skillRanks}}
+        {{> skill-increase}}
+    {{/if}}
+
+    {{#if talents}}
+        {{> talent-selection}}
+    {{/if}}
+
+
+
+    <footer class="form-footer">
+        <button type="button" class="cancel-button" data-action="cancel">
+            {{localize "cosmere-level-wizard.Cancel"}}
+        </button>
+        <button type="submit" class="submit-button">
+            {{localize "cosmere-level-wizard.LevelUp"}}
+        </button>
+    </footer>
+</form>
