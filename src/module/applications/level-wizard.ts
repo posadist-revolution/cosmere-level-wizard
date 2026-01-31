@@ -243,7 +243,6 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
     protected async _onFirstRender(context: AnyObject, options: AnyObject) {
         await super._onFirstRender(context, options);
 
-        // TODO: Resolve foundry-vtt-types typing issues
         this.actor.apps[this.id] = this;
     }
 
