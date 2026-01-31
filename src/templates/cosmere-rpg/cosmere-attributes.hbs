@@ -14,7 +14,7 @@
         <section class="attributes flexrow">
             {{#with attrGroup.attributes.[0] as |attribute|}}
             {{log this}}
-            <div class="sheet-stack attribute" data-id="{{attribute.id}}">
+            <div class="sheet-stack attribute flexcol" data-id="{{attribute.id}}">
                 <div class="container left">
                     <div class="background"></div>
                     <div class="border"></div>
@@ -24,27 +24,41 @@
                             <i class="fa-solid fa-bolt"></i>
                         {{/if}}
                     </span>
-                        <input class="value {{#if attribute.modified}}modified{{/if}}" type="number"
-                            value="{{total}}"
-                            readonly
-                        >
+                    <input class="value {{#if (gt (levelingGetFromKey @root.choices.attributes attribute.id) 0)}}choice{{/if}}" type="number"
+                        value="{{add (levelingGetFromKey @root.choices.attributes attribute.id) total}}"
+                        readonly>
+                </div>
+                <div class="btn-group flexrow">
+                    <button class="decrease {{#if (eq (levelingGetFromKey @root.choices.attributes attribute.id) 0)}}disabled{{/if}}" data-action="decrease-attribute">-</button>
+                    <button class="increase {{#if (eq @root.attributePointsRemaining 0)}}disabled{{/if}}" data-action="increase-attribute">+</button>
                 </div>
             </div>
             {{/with}}
 
             {{#with attrGroup.defense as |defense|}}
+            {{#with (levelingGetFromKey @root.choices.attributes attrGroup.attributes.[0].id) as |lAttributeChoice|}}
+            {{#with (levelingGetFromKey @root.choices.attributes attrGroup.attributes.[1].id) as |rAttributeChoice|}}
             <div class="sheet-stack defense">
                 <span class="label">{{localize "COSMERE.Actor.Sheet.Attributes.Defense"}}</span>
                 <div class="container">
+                    {{log this}}
+                    {{log lAttribute.id}}
+                    {{log rAttribute.id}}
+                    {{log (levelingGetFromKey @root.choices.attributes lAttribute.id)}}
+                    {{log (levelingGetFromKey @root.choices.attributes rAttribute.id)}}
                     <div class="background"></div>
                     <div class="border"></div>
-                    <span class="value">{{ defense.value }}</span>
+                    <span class="value {{#if (gt (add lAttributeChoice rAttributeChoice) 0)}}choice{{/if}}">
+                        {{add (add defense.value lAttributeChoice) rAttributeChoice}}
+                    </span>
                 </div>
             </div>
             {{/with}}
+            {{/with}}
+            {{/with}}
 
             {{#with attrGroup.attributes.[1] as |attribute|}}
-            <div class="sheet-stack attribute" data-id="{{attribute.id}}">
+            <div class="sheet-stack attribute flexcol" data-id="{{attribute.id}}">
                 <div class="container right">
                     <div class="background"></div>
                     <div class="border"></div>
@@ -54,10 +68,13 @@
                             <i class="fa-solid fa-bolt"></i>
                         {{/if}}
                     </span>
-                    <input class="value {{#if attribute.modified}}modified{{/if}}" type="number"
-                        value="{{total}}"
-                        readonly
-                    >
+                    <input class="value {{#if (gt (levelingGetFromKey @root.choices.attributes attribute.id) 0)}}choice{{/if}}" type="number"
+                        value="{{add (levelingGetFromKey @root.choices.attributes attribute.id) total}}"
+                        readonly>
+                </div>
+                <div class="btn-group flexrow">
+                    <button class="decrease {{#if (eq (levelingGetFromKey @root.choices.attributes attribute.id) 0)}}disabled{{/if}}" data-action="decrease-attribute">-</button>
+                    <button class="increase {{#if (eq @root.attributePointsRemaining 0)}}disabled{{/if}}" data-action="increase-attribute">+</button>
                 </div>
             </div>
             {{/with}}

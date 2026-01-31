@@ -46,6 +46,8 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
                 handler: this.onAdjustSkillRank,
                 buttons: [MouseButton.Primary, MouseButton.Secondary],
             },
+            'increase-attribute': this.onIncreaseAttribute,
+            'decrease-attribute': this.onDecreaseAttribute,
             submit: this.onSubmit,
             cancel: this.onCancel,
         },
@@ -168,6 +170,42 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
                 this.choices.skills[skillId] -= 1;
                 this.skillRanksRemaining += 1;
             }
+        }
+        this.render();
+    }
+
+    public static async onIncreaseAttribute(
+        this: LevelWizard,
+        event: Event,
+    ) {
+        event.preventDefault();
+        // Get attribute id
+        const attrId = $(event.target!)
+            .closest('[data-id]')
+            .data('id');
+
+        if (!attrId) return;
+        if(this.attributePointsRemaining > 0 ){
+            this.choices.attributes![attrId] += 1;
+            this.attributePointsRemaining -= 1;
+        }
+        this.render();
+    }
+
+    public static async onDecreaseAttribute(
+        this: LevelWizard,
+        event: Event,
+    ) {
+        event.preventDefault();
+        // Get attribute id
+        const attrId = $(event.target!)
+            .closest('[data-id]')
+            .data('id');
+        console.log(`${MODULE_ID}: Decreasing attribute ${attrId}`)
+        if (!attrId) return;
+        if(this.choices.attributes![attrId] > 0 ){
+            this.choices.attributes![attrId] -= 1;
+            this.attributePointsRemaining += 1;
         }
         this.render();
     }

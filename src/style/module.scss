@@ -74,6 +74,16 @@
         border-color: var(--cosmere-color-faded);
         background: var(--cosmere-color-base-1);
 
+        &.decrease {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        &.increase {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
         :not(.fa-solid, .fas) {
             font-family: var(--cosmere-font-normal);
             font-weight: 600;
@@ -86,7 +96,7 @@
             box-shadow: 0 0 5px var(--cosmere-color-faded);
         }
 
-        &:disabled {
+        &.disabled {
             opacity: 0.4;
         }
     }
@@ -735,7 +745,7 @@
                             height: 1.25rem;
                             padding-top: 0.25rem;
 
-                            &.modified:not(:focus) {
+                            &.choice:not(:focus) {
                                 color: var(--cosmere-color-highlight);
                             }
                         }
@@ -774,6 +784,10 @@
                         .value {
                             font-size: var(--font-size-20);
                             line-height: 46px;
+
+                            &.choice {
+                                color: var(--cosmere-color-highlight);
+                            }
                         }
                     }
                 }

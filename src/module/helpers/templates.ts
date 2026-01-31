@@ -142,8 +142,8 @@ function prepareAttribute(actor: CosmereActor, attrId: Attribute) {
         }
     ).system.attributes[attrId];
 
-    const total = attr.value + attr.bonus;
-    const sourceTotal = source.value + source.bonus;
+    const total = source.value;
+    const sourceTotal = source.value;
 
     return {
         id: attrId,
