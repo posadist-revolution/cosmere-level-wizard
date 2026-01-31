@@ -5,7 +5,7 @@ import { TEMPLATES } from "../helpers/templates";
 import { CharacterSheet } from "@src/declarations/cosmere-rpg/applications/actor/character-sheet";
 import { BaseActorSheetRenderContext } from "@src/declarations/cosmere-rpg/applications/actor/base";
 import { MODULE_ID } from "../constants";
-import { Attribute, AttributeGroup, Skill } from "@src/declarations/cosmere-rpg/types/cosmere";
+import { Attribute, AttributeGroup, Resource, Skill } from "@src/declarations/cosmere-rpg/types/cosmere";
 import { MouseButton } from '@src/declarations/cosmere-rpg/types/utils';
 import { getSystemSetting, SETTINGS } from "../settings";
 
@@ -292,11 +292,11 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
     async _prepareContext(){
 
         // Calculate new health total (TODO: may need updating for Hardy)
-        let newHealthTotal = this.actor.system.resources.health?.max ?? 0;
+        let newHealthTotal = this.actor.system.resources[Resource.Health].max.value ?? 0;
         if (this.advancementData.health) {
             newHealthTotal += this.advancementData.health;
             if (this.advancementData.healthIncludeStrength) {
-                newHealthTotal += this.actor.system.attributes.strength;
+                newHealthTotal += this.actor.system.attributes[Attribute.Strength].value;
             }
         }
 
