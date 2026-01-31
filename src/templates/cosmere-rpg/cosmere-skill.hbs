@@ -27,8 +27,6 @@
             {{/each}}
 
             {{#with (levelingGetFromKey @root.choices.skills skill.id) as |skillChoices|}}
-            {{log "Skill choices:"}}
-            {{log skillChoices}}
             {{!-- Chosen pips --}}
             {{#each (numberRange skillChoices)}}
                 <li class="pip choice">

@@ -1,8 +1,6 @@
 <app-actor-skills-group>
     <ul class="skill-list">
         {{#each skills as |skill|}}
-        {{log "Rendering skill:"}}
-        {{log skill}}
         {{#if skill.active}}
         <li class="skill flexrow app-actor-skill" data-id="{{skill.id}}">
             {{> cosmere-skill (levelingSkillContext @root.actor skill.id)}}
