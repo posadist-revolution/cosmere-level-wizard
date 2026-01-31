@@ -352,9 +352,14 @@ export function activateLevelUpHooks(){
     Hooks.on("renderCharacterSheet", (
         characterSheet: CharacterSheet,
         element: HTMLElement,
+        context: BaseActorSheetRenderContext
     ) => {
         // console.log(`${MODULE_ID}: Rendering Character Sheet`);
-        const levelUpButton = $('<button type="button" class="level-up-button">Level Up</button>');
+        // If the sheet isn't open in edit mode, don't show the level up button
+        if(!context.isEditMode){
+            return true;
+        }
+        const levelUpButton = $('<button type="button" class="level-up-button">+</button>');
 
         // Finding level div
         const header = $(element).find("header.sheet-header");
