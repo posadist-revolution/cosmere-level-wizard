@@ -7,7 +7,6 @@ import { BaseActorSheetRenderContext } from "@src/declarations/cosmere-rpg/appli
 import { MODULE_ID } from "../constants";
 import { Attribute, AttributeGroup, Resource, Skill } from "@src/declarations/cosmere-rpg/types/cosmere";
 import { MouseButton } from '@src/declarations/cosmere-rpg/types/utils';
-import { getSystemSetting, SETTINGS } from "../settings";
 
 interface LevelUpChoices {
     attributes?: Record<string, number>;
