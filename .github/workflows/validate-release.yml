@@ -48,7 +48,7 @@ jobs:
             exit 1
           fi
 
-          DOWNLOAD_URL=https://github.com/${{github.repository}}/releases/download/${{github.head_ref}}/cosmere-advanced-encounters-${{github.head_ref}}.zip
+          DOWNLOAD_URL=https://github.com/${{github.repository}}/releases/download/${{github.head_ref}}/cosmere-level-wizard-${{github.head_ref}}.zip
 
           # Verify that the download URL matches the release asset
           if [[ ! $DOWNLOAD_URL == $MANIFEST_DOWNLOAD ]]; then

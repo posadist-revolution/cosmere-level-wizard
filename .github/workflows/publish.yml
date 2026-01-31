@@ -26,7 +26,7 @@ jobs:
         # The secret token of your package for the FoundryVTT Package Release API.
         package-token: ${{ secrets.FOUNDRY_PACKAGE_API_TOKEN }}
         # The URL of the JSON manifest of your package.
-        manifest-url: https://github.com/posadist-revolution/cosmere-advanced-encounters/releases/download/${{ inputs.release-version }}/module.json
+        manifest-url: https://github.com/posadist-revolution/cosmere-level-wizard/releases/download/${{ inputs.release-version }}/module.json
         # The version of the release.  Leave undefined to use the `version` entry from your manifest file.
         version: # optional
         # The URL of the release notes for this release of your package.  Leave undefined to use the `changelog` entry from your manifest file.

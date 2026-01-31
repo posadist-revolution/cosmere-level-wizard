@@ -44,8 +44,8 @@ jobs:
       # Set up variables
       - name: Set up vars
         run: |
-          echo "ZIP_NAME=cosmere-advanced-encounters-$TAG.zip" >> $GITHUB_ENV
-          echo "DOWNLOAD_URL=https://github.com/${{github.repository}}/releases/download/$TAG/cosmere-advanced-encounters-$TAG.zip" >> $GITHUB_ENV
+          echo "ZIP_NAME=cosmere-level-wizard-$TAG.zip" >> $GITHUB_ENV
+          echo "DOWNLOAD_URL=https://github.com/${{github.repository}}/releases/download/$TAG/cosmere-level-wizard-$TAG.zip" >> $GITHUB_ENV
 
       # Verify manifest
       - name: Verify manifest
