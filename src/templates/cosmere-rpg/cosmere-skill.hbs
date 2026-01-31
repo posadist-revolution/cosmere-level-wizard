@@ -1,9 +1,8 @@
 <div class="mod">
-    {{!-- TODO: Add Attribute Increases to modifier changes --}}
     <span class="operator">+</span>
-    {{#with (levelingGetFromKey @root.choices.skills skill.id) as |skillChoiceCount|}}
-    {{#if (gt (skillChoiceCount) 0)}}
-    <span class="val choice">{{add (derived ../skill.mod) skillChoiceCount}}</span>
+    {{#with (add (levelingGetFromKey @root.choices.attributes skill.attribute) (levelingGetFromKey @root.choices.skills skill.id)) as |allSourceIncrease|}}
+    {{#if (gt allSourceIncrease 0)}}
+    <span class="val choice">{{add (derived ../skill.mod) allSourceIncrease}}</span>
     {{else}}
     <span class="val">{{derived ../skill.mod }}</span>
     {{/if}}
