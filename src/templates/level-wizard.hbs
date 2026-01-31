@@ -1,13 +1,13 @@
 <form class="level-wizard-form">
     <div class="scroll-container">
         <header class="level-wizard-header">
+            {{!-- TODO: Make the level display prettier and include tier if it changes --}}
             <h2>{{localize "cosmere-level-wizard.Title"}}</h2>
             <p class="level-info">
                 {{localize "cosmere-level-wizard.LevelingUp"}}
                 <strong>{{actor.system.level}}</strong> -> <strong>{{newLevel}}</strong>
             </p>
         </header>
-        {{!-- TODO: Make more space between these sections --}}
         {{#if advancementData.attributePoints}}
             {{> attribute-increase}}
         {{/if}}
