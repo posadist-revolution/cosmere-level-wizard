@@ -1,44 +1,46 @@
 <form class="level-wizard-form">
-    <header class="level-wizard-header">
-        <h2>{{localize "cosmere-level-wizard.Title"}}</h2>
-        <p class="level-info">
-            {{localize "cosmere-level-wizard.LevelingUp"}}
-            <strong>{{actor.system.level}}</strong> -> <strong>{{newLevel}}</strong>
-        </p>
-    </header>
-    {{!-- TODO: Make more space between these sections --}}
-    {{#if advancementData.attributePoints}}
-        {{> attribute-increase}}
-    {{/if}}
-    {{!-- TODO: Add ability to display or choose options from attribute increase --}}
+    <div class="scroll-container">
+        <header class="level-wizard-header">
+            <h2>{{localize "cosmere-level-wizard.Title"}}</h2>
+            <p class="level-info">
+                {{localize "cosmere-level-wizard.LevelingUp"}}
+                <strong>{{actor.system.level}}</strong> -> <strong>{{newLevel}}</strong>
+            </p>
+        </header>
+        {{!-- TODO: Make more space between these sections --}}
+        {{#if advancementData.attributePoints}}
+            {{> attribute-increase}}
+        {{/if}}
+        {{!-- TODO: Add ability to display or choose options from attribute increase --}}
 
-    {{#if health}}
-        {{> health-increase}}
-    {{/if}}
+        {{#if health}}
+            {{> health-increase}}
+        {{/if}}
 
-    {{#if advancementData.skillRanksOrTalents}}
-        {{> choose-skill-or-talent}}
-    {{/if}}
+        {{#if advancementData.skillRanksOrTalents}}
+            {{> choose-skill-or-talent}}
+        {{/if}}
 
-    {{#if advancementData.skillRanks}}
-        {{> skill-increase}}
-    {{/if}}
+        {{#if advancementData.skillRanks}}
+            {{> skill-increase}}
+        {{/if}}
 
-    {{#if advancementData.talents}}
-        {{> talent-selection}}
-    {{/if}}
+        {{#if advancementData.talents}}
+            {{> talent-selection}}
+        {{/if}}
 
-    {{#if ancestryBonusTalents}}
-        {{> talent-selection ancestryBonusTalentsBool = true}}
-    {{/if}}
+        {{#if ancestryBonusTalents}}
+            {{> talent-selection ancestryBonusTalentsBool = true}}
+        {{/if}}
 
-    <footer class="form-footer">
-        <button type="button" class="cancel-button" data-action="cancel">
-            {{localize "cosmere-level-wizard.Cancel"}}
-        </button>
-        {{!-- TODO: Disable submit button until all choices are finished --}}
-        <button type="submit" class="submit-button {{#unless (levelComplete this)}}disabled{{/unless}}" data-action="submit">
-            {{localize "cosmere-level-wizard.LevelUp"}}
-        </button>
-    </footer>
+        <footer class="form-footer">
+            <button type="button" class="cancel-button" data-action="cancel">
+                {{localize "cosmere-level-wizard.Cancel"}}
+            </button>
+            {{!-- TODO: Disable submit button until all choices are finished --}}
+            <button type="submit" class="submit-button {{#unless (levelComplete this)}}disabled{{/unless}}" data-action="submit">
+                {{localize "cosmere-level-wizard.LevelUp"}}
+            </button>
+        </footer>
+    </div>
 </form>
