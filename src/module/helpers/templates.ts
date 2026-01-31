@@ -1,7 +1,6 @@
 import { Attribute, AttributeGroup, Skill } from "@src/declarations/cosmere-rpg/types/cosmere";
 import { MODULE_ID } from "../constants";
 import { AttributeGroupConfig } from "@src/declarations/cosmere-rpg/types/config";
-import { AnyRecord } from "dns";
 
 const TEMPLATE_PATH_START = `modules/${MODULE_ID}/templates`
 export const TEMPLATES = {
@@ -157,4 +156,15 @@ function prepareAttribute(actor: CosmereActor, attrId: Attribute) {
 
 Handlebars.registerHelper('levelingGetFromKey', (record: Record<string, any>, key: string) => {
     return record[key];
-})
+});
+
+Handlebars.registerHelper('levelComplete', (context) => {
+    console.log(`${MODULE_ID}: Checking level complete. Context:`);
+    console.log(context);
+    let levelComplete: Boolean = context.attributePointsRemaining == 0;
+    levelComplete = levelComplete && context.skillRanksRemaining == 0;
+    // levelComplete = levelComplete && context.talentsRemaining == 0;
+    // levelComplete = levelComplete && context.ancestryBonusTalentsRemaining == 0;
+    console.log(`${MODULE_ID}: Level complete = ${levelComplete}`);
+    return levelComplete
+});

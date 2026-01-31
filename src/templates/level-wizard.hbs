@@ -6,6 +6,7 @@
             <strong>{{actor.system.level}}</strong> -> <strong>{{newLevel}}</strong>
         </p>
     </header>
+    {{!-- TODO: Make more space between these sections --}}
     {{#if advancementData.attributePoints}}
         {{> attribute-increase}}
     {{/if}}
@@ -36,7 +37,7 @@
             {{localize "cosmere-level-wizard.Cancel"}}
         </button>
         {{!-- TODO: Disable submit button until all choices are finished --}}
-        <button type="submit" class="submit-button" data-action="submit">
+        <button type="submit" class="submit-button {{#unless (levelComplete this)}}disabled{{/unless}}" data-action="submit">
             {{localize "cosmere-level-wizard.LevelUp"}}
         </button>
     </footer>
