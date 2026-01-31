@@ -1,8 +1,15 @@
 <section class="talents-section">
+    {{#if ancestryBonusTalentsBool}}
+    <h3>{{localize "cosmere-level-wizard.AncestryBonusTalents"}}</h3>
+    <p class="section-description">
+        {{localize "cosmere-level-wizard.AncestryBonusTalentsDescription" count=@root.ancestryBonusTalents}}
+    </p>
+    {{else}}
     <h3>{{localize "cosmere-level-wizard.Talents"}}</h3>
     <p class="section-description">
         {{localize "cosmere-level-wizard.TalentsDescription" count=@root.advancementData.talents}}
     </p>
+    {{/if}}
     <div class="talents-info">
         <p>{{localize "cosmere-level-wizard.TalentsNote"}}</p>
         <div class="talents-count">

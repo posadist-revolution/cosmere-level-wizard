@@ -6,7 +6,6 @@
             <strong>{{actor.system.level}}</strong> -> <strong>{{newLevel}}</strong>
         </p>
     </header>
-
     {{#if advancementData.attributePoints}}
         {{> attribute-increase}}
     {{/if}}
@@ -27,13 +26,15 @@
         {{> talent-selection}}
     {{/if}}
 
-
+    {{#if ancestryBonusTalents}}
+        {{> talent-selection ancestryBonusTalentsBool = true}}
+    {{/if}}
 
     <footer class="form-footer">
         <button type="button" class="cancel-button" data-action="cancel">
             {{localize "cosmere-level-wizard.Cancel"}}
         </button>
-        <button type="submit" class="submit-button">
+        <button type="submit" class="submit-button" data-action="submit">
             {{localize "cosmere-level-wizard.LevelUp"}}
         </button>
     </footer>

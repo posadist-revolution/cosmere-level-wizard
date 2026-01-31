@@ -26,6 +26,8 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
     private skillRanksRemaining: number;
     private attributePointsRemaining: number;
     private talentsRemaining: number;
+    private ancestryBonusTalents?: number;
+    private ancestryBonusTalentsRemaining?: number;
 
     static DEFAULT_OPTIONS = {
         window: {
@@ -87,6 +89,12 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
         }
         else{
             this.advancementData = advancement[this.actor.system.level];
+            if(this.advancementData.level % 5 == 1){
+                //TODO: Add this value to the CONFIG
+                // console.log(`${MODULE_ID}: Adding ancestry bonus talents`);
+                this.ancestryBonusTalents = 1;
+                this.ancestryBonusTalentsRemaining = this.ancestryBonusTalents;
+            }
         }
 
         // console.log(`${MODULE_ID}: `);
@@ -290,6 +298,8 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
             actor: this.actor,
             newLevel: this.advancementData.level,
             talentsRemaining: this.talentsRemaining,
+            ancestryBonusTalents: this.ancestryBonusTalents,
+            ancestryBonusTalentsRemaining: this.ancestryBonusTalentsRemaining,
             attributePointsRemaining: this.attributePointsRemaining,
             maxSkillRanks: this.advancementData.maxSkillRanks,
             skillRanksRemaining: this.skillRanksRemaining,
