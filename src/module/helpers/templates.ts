@@ -48,7 +48,8 @@ Handlebars.registerHelper('levelingSkillsGroupContext', (actor: CosmereActor, gr
         .flat()
         .filter(
             (skillId) =>
-                CONFIG.COSMERE.skills[skillId].core,
+                (CONFIG.COSMERE.skills[skillId].core ||
+                actor.system.skills[skillId].unlocked),
         )
         .sort((a, b) => a.localeCompare(b)); // Sort alphabetically
 
