@@ -2,12 +2,12 @@
 <section class="attribute-points-section">
     <h3>{{localize "cosmere-level-wizard.AttributePoints"}}</h3>
     <p class="section-description">
-        {{localize "cosmere-level-wizard.AttributePointsDescription" points=attributePoints}}
+        {{localize "cosmere-level-wizard.AttributePointsDescription" points=@root.advancementData.attributePoints}}
     </p>
-    {{!-- Attribute Groups --}}
-    {{> attributes}}
     <div class="points-remaining">
         <span>{{localize "cosmere-level-wizard.PointsRemaining"}}: </span>
-        <strong class="remaining-count">{{attributePoints}}</strong>
+        <strong class="remaining-count">{{@root.attributePointsRemaining}}</strong>
     </div>
+    {{!-- Attribute Groups --}}
+    {{> attributes}}
 </section>

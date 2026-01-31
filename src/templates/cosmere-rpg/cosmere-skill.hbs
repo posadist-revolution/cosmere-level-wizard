@@ -2,7 +2,7 @@
     <span class="operator">+</span>
     <span class="val">{{derived skill.mod }}</span>
 </div>
-<a class="name" data-action="roll-skill">
+<a class="name">
     <span>{{ localize skill.label }}</span>
 </a>
 <div class="attribute">
@@ -11,31 +11,35 @@
 
 {{#if pips}}
     <div class="skill-pips ranks">
-        {{#if editable}}
-            {{#if legacyMode}}
-                <a data-tooltip="{{localize "COSMERE.Actor.Sheet.Skills.AdjustTooltip" skill=(localize skill.label)}}">
-            {{else}}
-                <a data-tooltip="{{localize "COSMERE.Actor.Sheet.Skills.SetTooltip" skill=(localize skill.label)}}">
-            {{/if}}
-        {{else}}
-            <div>
-        {{/if}}
+        <a data-tooltip="{{localize "COSMERE.Actor.Sheet.Skills.AdjustTooltip" skill=(localize skill.label)}}">
         <ul class="pip-list">
+            {{!-- Existing pips --}}
             {{#each (numberRange skill.rank)}}
                 <li class="pip active">
-                    <div {{#if ../editable}}data-action="adjust-skill-rank" data-index='{{@index}}'{{/if}}></div>
+                    <div data-action="adjust-skill-rank" data-index='{{@index}}'></div>
                 </li>
             {{/each}}
-            {{#each (numberRange (sub 5 skill.rank))}}
-                <li class="pip{{#if (gt (add (add @index 1) ../skill.rank) ../maxSkillRank)}} locked{{/if}}">
-                    <div {{#if ../editable}}data-action="adjust-skill-rank" data-index='{{add @index ../skill.rank}}'{{/if}}></div>
+
+            {{#with (levelingGetFromKey @root.choices.skills skill.id) as |skillChoices|}}
+            {{log "Skill choices:"}}
+            {{log skillChoices}}
+            {{!-- Chosen pips --}}
+            {{#each (numberRange skillChoices)}}
+                <li class="pip choice">
+                    <div data-action="adjust-skill-rank" data-index='{{add @index ../../skill.rank}}'></div>
                 </li>
             {{/each}}
+
+            {{!-- Unselected Pips --}}
+            {{#each (numberRange (sub 5 (add ../skill.rank skillChoices)))}}
+                <li class="pip{{#if (gt (add (add (add @index 1) skillChoices) ../../skill.rank) @root.maxSkillRanks)}} locked{{/if}}">
+                    <div data-action="adjust-skill-rank" data-index='{{add (add @index skillChoices) ../../skill.rank}}'></div>
+                </li>
+            {{/each}}
+
+            {{/with}}
+
         </ul>
-        {{#if editable}}
-            </a>
-        {{else}}
-            </div>
-        {{/if}}
+        </a>
     </div>
 {{/if}}

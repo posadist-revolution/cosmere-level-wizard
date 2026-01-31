@@ -1,12 +1,15 @@
-<ul class="skill-list">
-    {{#each skills as |skill|}}
+<app-actor-skills-group>
+    <ul class="skill-list">
+        {{#each skills as |skill|}}
+        {{log "Rendering skill:"}}
+        {{log skill}}
+        {{#if skill.active}}
+        <li class="skill flexrow app-actor-skill" data-id="{{skill.id}}">
+            {{> cosmere-skill (levelingSkillContext @root.actor skill.id)}}
+        </li>
+        {{/if}}
 
-    {{#if skill.active}}
-    <li class="skill flexrow" data-id="{{skill.id}}">
-        {{!-- {{> cosmere-skill skill=skill.id readonly=(not @root.isEditMode)}} --}}
-    </li>
-    {{/if}}
-
-    {{/each}}
-</ul>
-{{> box-corners }}
+        {{/each}}
+    </ul>
+    {{> box-corners }}
+</app-actor-skills-group>

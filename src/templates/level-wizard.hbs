@@ -7,7 +7,7 @@
         </p>
     </header>
 
-    {{#if attributePoints}}
+    {{#if advancementData.attributePoints}}
         {{> attribute-increase}}
     {{/if}}
 
@@ -15,15 +15,15 @@
         {{> health-increase}}
     {{/if}}
 
-    {{#if skillRanksOrTalents}}
+    {{#if advancementData.skillRanksOrTalents}}
         {{> choose-skill-or-talent}}
     {{/if}}
 
-    {{#if skillRanks}}
+    {{#if advancementData.skillRanks}}
         {{> skill-increase}}
     {{/if}}
 
-    {{#if talents}}
+    {{#if advancementData.talents}}
         {{> talent-selection}}
     {{/if}}
 

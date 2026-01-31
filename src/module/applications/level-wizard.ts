@@ -5,20 +5,14 @@ import { TEMPLATES } from "../helpers/templates";
 import { CharacterSheet } from "@src/declarations/cosmere-rpg/applications/actor/character-sheet";
 import { BaseActorSheetRenderContext } from "@src/declarations/cosmere-rpg/applications/actor/base";
 import { MODULE_ID } from "../constants";
-
-declare global {
-    interface CONFIG {
-        COSMERE: {
-            attributeGroups: Record<string, any>;
-        };
-    }
-}
+import { Attribute, AttributeGroup, Skill } from "@src/declarations/cosmere-rpg/types/cosmere";
+import { MouseButton } from '@src/declarations/cosmere-rpg/types/utils';
+import { getSystemSetting, SETTINGS } from "../settings";
 
 interface LevelUpChoices {
     attributes?: Record<string, number>;
     skills?: Record<string, number>;
     talent?: string;
-    choiceSkills?: Record<string, number>;
     choice?: 'skillRanks' | 'talents';
 }
 
@@ -29,6 +23,9 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
     declare advancementData: AdvancementRuleConfig;
     private submitted = false;
     private choices: LevelUpChoices = {};
+    private skillRanksRemaining: number;
+    private attributePointsRemaining: number;
+    private talentsRemaining: number;
 
     static DEFAULT_OPTIONS = {
         window: {
@@ -43,6 +40,10 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
             width: 600,
         },
         actions: {
+            'adjust-skill-rank': {
+                handler: this.onAdjustSkillRank,
+                buttons: [MouseButton.Primary, MouseButton.Secondary],
+            },
             submit: this.onSubmit,
             cancel: this.onCancel,
         },
@@ -53,6 +54,7 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
         {
             form: {
                 template: TEMPLATES.LEVEL_WIZARD,
+                scrollable: [""],
                 forms: {
                     form: {
                         closeOnSubmit: false,
@@ -60,7 +62,18 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
                         submitOnChange: false,
                     },
                 },
+                // templates: [
+                //     TEMPLATES.ATTRIBUTE_INCREASE,
+                //     TEMPLATES.CHOOSE_SKILL_OR_TALENT,
+                //     TEMPLATES.COSMERE_ATTRIBUTES,
+                //     TEMPLATES.COSMERE_SKILL,
+                //     TEMPLATES.COSMERE_SKILLS_GROUP,
+                //     TEMPLATES.HEALTH_INCREASE,
+                //     TEMPLATES.SKILL_INCREASE,
+                //     TEMPLATES.TALENT_SELECTION,
+                // ]
             },
+
         },
     );
 
@@ -75,6 +88,90 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
         else{
             this.advancementData = advancement[this.actor.system.level];
         }
+
+        // console.log(`${MODULE_ID}: `);
+        // Find starting skillRanksRemaining
+        this.skillRanksRemaining = 0;
+        if(this.advancementData.skillRanks){
+            this.skillRanksRemaining += this.advancementData.skillRanks;
+            this.choices.skills = {};
+            for(const skillId in this.actor.system.skills){
+                console.log(this.actor.system.skills);
+                console.log(`${MODULE_ID}: Adding skill with ID: ${skillId}`);
+                this.choices.skills[skillId] = 0;
+            }
+        }
+        if(this.advancementData.skillRanksOrTalents){
+            this.skillRanksRemaining += this.advancementData.skillRanksOrTalents;
+            this.choices.skills = {};
+            for(const skillId in this.actor.system.skills){
+                this.choices.skills[skillId] = 0;
+            }
+        }
+        console.log(`${MODULE_ID}: Skill ranks remaining: ${this.skillRanksRemaining}`);
+        console.log(`${MODULE_ID}: Choice skills:`);
+        console.log(this.choices.skills);
+
+        // Find starting attributePointsRemaining
+        this.attributePointsRemaining = 0;
+        if(this.advancementData.attributePoints){
+            this.attributePointsRemaining += this.advancementData.attributePoints;
+            this.choices.attributes = {};
+            for(const attrId in this.actor.system.attributes){
+                this.choices.attributes[attrId] = 0;
+            }
+        }
+        console.log(`${MODULE_ID}: Attribute points remaining: ${this.attributePointsRemaining}`);
+
+        // Find starting talentsRemaining
+        this.talentsRemaining = 0;
+        if(this.advancementData.talents){
+            this.talentsRemaining += this.advancementData.talents;
+            this.choices.talent = "";
+        }
+        console.log(`${MODULE_ID}: Talents remaining: ${this.talentsRemaining}`);
+
+    }
+
+    /* --- Actions --- */
+    public static async onAdjustSkillRank(
+        this: LevelWizard,
+        event: Event,
+    ) {
+        event.preventDefault();
+
+        // Check if click is left or right mouse button
+        const isLeftClick: boolean = event.type === 'click' ? true : false;
+
+        // Get skill id
+        const skillId = $(event.target!)
+            .closest('[data-id]')
+            .data('id');
+
+        console.log(`${MODULE_ID}: currentTarget:`);
+        console.log($(event.target!));
+        console.log(`${MODULE_ID}: currentTarget.closest:`);
+        console.log($(event.target!).closest('[data-id]'));
+        console.log(`${MODULE_ID}: currentTarget.closest.data:`);
+        console.log($(event.target!).closest('[data-id]').data('id'));
+        console.log(`${MODULE_ID}: Adjusting rank of skill: ${skillId}`);
+
+        if (!skillId) return;
+
+        // Increment/Decrement the skill rank based on click type
+        if (isLeftClick) {
+            if(this.skillRanksRemaining > 0){
+                this.choices.skills![skillId] += 1;
+                this.skillRanksRemaining -= 1;
+            }
+        }
+        else {
+            if(this.choices.skills && this.choices.skills[skillId] > 0){
+                this.choices.skills[skillId] -= 1;
+                this.skillRanksRemaining += 1;
+            }
+        }
+        this.render();
     }
 
     /* --- Statics --- */
@@ -123,6 +220,7 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
         formData: FormDataExtended,
     ) {
         if (event instanceof SubmitEvent) return;
+        //TODO: Update choices
     }
 
     /* --- Actions --- */
@@ -178,15 +276,6 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
             }
         }
 
-        // Apply choice-based skill rank increases
-        if (this.choices.choiceSkills && this.choices.choice == 'skillRanks') {
-            for (const [key, increase] of Object.entries(this.choices.choiceSkills)) {
-                if (increase > 0) {
-                    const currentRank = this.actor.system.skills[key].rank;
-                    updates[`system.skills.${key}.rank`] = currentRank + increase;
-                }
-            }
-        }
         else if (this.choices.choice == 'talents')
         {
             //TODO: APPLY TALENT HERE
@@ -211,14 +300,14 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
         }
 
         return {
+            advancementData: this.advancementData,
+            choices: this.choices,
             actor: this.actor,
-            skills: this.actor.system.skills,
             newLevel: this.advancementData.level,
-            talents: this.advancementData.talents,
-            attributePoints: this.advancementData.attributePoints,
+            talentsRemaining: this.talentsRemaining,
+            attributePointsRemaining: this.attributePointsRemaining,
             maxSkillRanks: this.advancementData.maxSkillRanks,
-            skillRanks: this.advancementData.skillRanks,
-            skillRanksOrTalents: this.advancementData.skillRanksOrTalents,
+            skillRanksRemaining: this.skillRanksRemaining,
             health: this.advancementData.health,
             healthIncludeStrength: this.advancementData.healthIncludeStrength,
             newHealthTotal,
