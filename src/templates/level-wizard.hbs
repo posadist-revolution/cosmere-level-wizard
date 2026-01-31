@@ -33,11 +33,7 @@
             {{> talent-selection ancestryBonusTalentsBool = true}}
         {{/if}}
 
-        <footer class="form-footer">
-            <button type="button" class="cancel-button" data-action="cancel">
-                {{localize "cosmere-level-wizard.Cancel"}}
-            </button>
-            {{!-- TODO: Disable submit button until all choices are finished --}}
+        <footer class="form-footer flexrow">
             <button type="submit" class="submit-button {{#unless (levelComplete this)}}disabled{{/unless}}" data-action="submit">
                 {{localize "cosmere-level-wizard.LevelUp"}}
             </button>

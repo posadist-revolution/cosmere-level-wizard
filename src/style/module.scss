@@ -28,6 +28,7 @@
     section {
         margin-top: 0.625rem;
     }
+
     input[type="text"],
     input[type="number"],
     select {
@@ -41,6 +42,10 @@
         border-radius: 0;
         outline: none;
         box-shadow: none;
+    }
+
+    footer{
+        margin-top: 0.625rem;
     }
 
     input[type="checkbox"] {
