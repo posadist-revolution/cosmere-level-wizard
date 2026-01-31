@@ -266,11 +266,6 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
             }
         }
 
-        else if (this.choices.choice == 'talents')
-        {
-            //TODO: APPLY TALENT HERE
-        }
-
         // Update the actor
         await this.actor.update(updates);
 

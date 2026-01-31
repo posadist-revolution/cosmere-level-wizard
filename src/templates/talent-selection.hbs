@@ -1,13 +1,13 @@
 <section class="talents-section">
     <h3>{{localize "cosmere-level-wizard.Talents"}}</h3>
     <p class="section-description">
-        {{localize "cosmere-level-wizard.TalentsDescription" count=talents}}
+        {{localize "cosmere-level-wizard.TalentsDescription" count=@root.advancementData.talents}}
     </p>
     <div class="talents-info">
         <p>{{localize "cosmere-level-wizard.TalentsNote"}}</p>
         <div class="talents-count">
             <span>{{localize "cosmere-level-wizard.TalentsToSelect"}}: </span>
-            <strong>{{talents}}</strong>
+            <strong>{{@root.advancementData.talents}}</strong>
         </div>
     </div>
 </section>
