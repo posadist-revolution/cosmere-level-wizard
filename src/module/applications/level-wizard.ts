@@ -155,12 +155,13 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
         console.log(`${MODULE_ID}: currentTarget.closest.data:`);
         console.log($(event.target!).closest('[data-id]').data('id'));
         console.log(`${MODULE_ID}: Adjusting rank of skill: ${skillId}`);
+        console.log(`${MODULE_ID}: Relevant starting rank of skill: ${skillId}`);
 
         if (!skillId) return;
 
         // Increment/Decrement the skill rank based on click type
         if (isLeftClick) {
-            if(this.skillRanksRemaining > 0){
+            if(this.skillRanksRemaining > 0 && this.advancementData.maxSkillRanks > (this.actor.system.skills[skillId].rank + this.choices.skills![skillId])){
                 this.choices.skills![skillId] += 1;
                 this.skillRanksRemaining -= 1;
             }
