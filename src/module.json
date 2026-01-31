@@ -4,7 +4,6 @@
   "description": "",
   "version": "0.0.1",
   "library": "false",
-  "manifestPlusVersion": "1.2.0",
   "compatibility": {
     "minimum": 13,
     "verified": 13
@@ -30,6 +29,9 @@
   "esmodules": [
     "index.js"
   ],
+	"styles": [
+		"output.css"
+	],
   "languages": [
     {
       "lang": "en",

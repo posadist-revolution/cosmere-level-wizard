@@ -1,3 +1,4 @@
+import './style.scss';
 import { activateLevelUpHooks } from "./module/applications/level-wizard";
 import { preloadHandlebarsTemplates } from "./module/helpers/templates";
 
