@@ -65,16 +65,16 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
                         submitOnChange: false,
                     },
                 },
-                // templates: [
-                //     TEMPLATES.ATTRIBUTE_INCREASE,
-                //     TEMPLATES.CHOOSE_SKILL_OR_TALENT,
-                //     TEMPLATES.COSMERE_ATTRIBUTES,
-                //     TEMPLATES.COSMERE_SKILL,
-                //     TEMPLATES.COSMERE_SKILLS_GROUP,
-                //     TEMPLATES.HEALTH_INCREASE,
-                //     TEMPLATES.SKILL_INCREASE,
-                //     TEMPLATES.TALENT_SELECTION,
-                // ]
+                templates: [
+                    TEMPLATES.ATTRIBUTE_INCREASE,
+                    TEMPLATES.CHOOSE_SKILL_OR_TALENT,
+                    TEMPLATES.COSMERE_ATTRIBUTES,
+                    TEMPLATES.COSMERE_SKILL,
+                    TEMPLATES.COSMERE_SKILLS_GROUP,
+                    TEMPLATES.HEALTH_INCREASE,
+                    TEMPLATES.SKILL_INCREASE,
+                    TEMPLATES.TALENT_SELECTION,
+                ]
             },
 
         },
@@ -85,8 +85,9 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
             id: `${characterActor.uuid}.level-wizard`,
         });
         this.actor = characterActor;
-        if(this.actor.system.level > 20){
+        if(this.actor.system.level >= 20){
             this.advancementData = advancement[20];
+            this.advancementData.level = this.actor.system.level + 1;
         }
         else{
             this.advancementData = advancement[this.actor.system.level];
@@ -103,17 +104,10 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
         this.skillRanksRemaining = 0;
         if(this.advancementData.skillRanks){
             this.skillRanksRemaining += this.advancementData.skillRanks;
-            this.choices.skills = {};
-            for(const skillId in this.actor.system.skills){
-                this.choices.skills[skillId] = 0;
-            }
         }
-        if(this.advancementData.skillRanksOrTalents){
-            this.skillRanksRemaining += this.advancementData.skillRanksOrTalents;
-            this.choices.skills = {};
-            for(const skillId in this.actor.system.skills){
-                this.choices.skills[skillId] = 0;
-            }
+        this.choices.skills = {};
+        for(const skillId in this.actor.system.skills){
+            this.choices.skills[skillId] = 0;
         }
         // console.log(`${MODULE_ID}: Skill ranks remaining: ${this.skillRanksRemaining}`);
         // console.log(`${MODULE_ID}: Choice skills:`);
@@ -123,10 +117,10 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
         this.attributePointsRemaining = 0;
         if(this.advancementData.attributePoints){
             this.attributePointsRemaining += this.advancementData.attributePoints;
-            this.choices.attributes = {};
-            for(const attrId in this.actor.system.attributes){
-                this.choices.attributes[attrId] = 0;
-            }
+        }
+        this.choices.attributes = {};
+        for(const attrId in this.actor.system.attributes){
+            this.choices.attributes[attrId] = 0;
         }
         // console.log(`${MODULE_ID}: Attribute points remaining: ${this.attributePointsRemaining}`);
 
@@ -135,6 +129,12 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
         if(this.advancementData.talents){
             this.talentsRemaining += this.advancementData.talents;
             this.choices.talent = "";
+        }
+
+        // Handle choose skills or talents
+        if(this.advancementData.skillRanksOrTalents){
+            this.skillRanksRemaining += this.advancementData.skillRanksOrTalents;
+            this.talentsRemaining += this.advancementData.skillRanksOrTalents;
         }
         // console.log(`${MODULE_ID}: Talents remaining: ${this.talentsRemaining}`);
 
@@ -223,11 +223,16 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
         $(this.element).prop('open', true);
 
         // Add event listener for choice radio buttons
+        if(!(this.advancementData.skillRanksOrTalents)){
+            return;
+        }
         const choiceRadios = $(this.element).find('input[name="choice"]');
         for (const radio of choiceRadios){
             radio.addEventListener('change', (event) => {
                 const target = event.target as HTMLInputElement;
                 const choiceContents = $(this.element).find('.choice-content');
+                //TODO: This doesn't actually set the choice correctly, so we don't check completion correctly
+                // this.choices.choice = target.value as ("skillRanks" | "talents");
                 for(const content of choiceContents){
                     if (content.dataset.choice == target.value) {
                         content.classList.remove('hidden');
@@ -286,13 +291,15 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
         };
 
         // Apply new talents
+        // TODO: Once choice is correct, switch to this:
+        // if (this.advancementData.talents || this.choices.choice == "talents")
         if(this.choices.talent){
             //TODO: APPLY TALENT HERE
         }
 
         // Apply attribute increases
         if (this.choices.attributes) {
-            for (const [key, increase] of Object.entries(this.choices.attributes)) {
+            for (const [key, increase] of Object.entries(this.choices.attributes!)) {
                 if (increase > 0) {
                     const currentValue = this.actor.system.attributes[key].value;
                     updates[`system.attributes.${key}.value`] = currentValue + increase;
@@ -301,8 +308,10 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
         }
 
         // Apply skill rank increases
+        // TODO: Once choice is correct, switch to this:
+        // if (this.advancementData.skillRanks || this.choices.choice == "skillRanks")
         if (this.choices.skills) {
-            for (const [key, increase] of Object.entries(this.choices.skills)) {
+            for (const [key, increase] of Object.entries(this.choices.skills!)) {
                 if (increase > 0) {
                     const currentRank = this.actor.system.skills[key].rank;
                     updates[`system.skills.${key}.rank`] = currentRank + increase;

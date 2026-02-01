@@ -162,9 +162,22 @@ Handlebars.registerHelper('levelComplete', (context) => {
     console.log(`${MODULE_ID}: Checking level complete. Context:`);
     console.log(context);
     let levelComplete: Boolean = context.attributePointsRemaining == 0;
-    levelComplete = levelComplete && context.skillRanksRemaining == 0;
-    // levelComplete = levelComplete && context.talentsRemaining == 0;
-    // levelComplete = levelComplete && context.ancestryBonusTalentsRemaining == 0;
+    if(!context.advancementData.skillRanksOrTalents)
+    {
+        // If we don't have to choose between skill ranks or talents, we should check that all remaining items have been used
+        levelComplete = levelComplete && context.skillRanksRemaining == 0;
+        // levelComplete = levelComplete && context.talentsRemaining == 0;
+        // levelComplete = levelComplete && context.ancestryBonusTalentsRemaining == 0;
+    }
+    else{
+        //If we do have to choose between skill ranks or talents, we should only check one of the two
+        if(context.choices.choice == "skillRanks"){
+            levelComplete = levelComplete && (context.skillRanksRemaining == 0);
+        }
+        else{
+            // levelComplete = levelComplete && context.talentsRemaining == 0;
+        }
+    }
     console.log(`${MODULE_ID}: Level complete = ${levelComplete}`);
     return levelComplete
 });
