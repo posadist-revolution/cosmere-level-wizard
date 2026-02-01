@@ -2,19 +2,19 @@
     {{#if ancestryBonusTalentsBool}}
     <h3>{{localize "cosmere-level-wizard.AncestryBonusTalents"}}</h3>
     <p class="section-description">
-        {{localize "cosmere-level-wizard.AncestryBonusTalentsDescription" count=@root.ancestryBonusTalents}}
+        {{localize "cosmere-level-wizard.AncestryBonusTalentsDescription" count=talents}}
     </p>
     {{else}}
     <h3>{{localize "cosmere-level-wizard.Talents"}}</h3>
     <p class="section-description">
-        {{localize "cosmere-level-wizard.TalentsDescription" count=@root.advancementData.talents}}
+        {{localize "cosmere-level-wizard.TalentsDescription" count=talents}}
     </p>
     {{/if}}
     <div class="talents-info">
         <p>{{localize "cosmere-level-wizard.TalentsNote"}}</p>
         <div class="talents-count">
             <span>{{localize "cosmere-level-wizard.TalentsToSelect"}}: </span>
-            <strong>{{@root.advancementData.talents}}</strong>
+            <strong>{{talentsRemaining}}</strong>
         </div>
     </div>
 </section>

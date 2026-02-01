@@ -22,15 +22,15 @@
         {{/if}}
 
         {{#if advancementData.skillRanks}}
-            {{> skill-increase}}
+            {{> skill-increase skillRanks=advancementData.skillRanks}}
         {{/if}}
 
         {{#if advancementData.talents}}
-            {{> talent-selection}}
+            {{> talent-selection talents=advancementData.talents talentsRemaining=talentsRemaining}}
         {{/if}}
 
         {{#if ancestryBonusTalents}}
-            {{> talent-selection ancestryBonusTalentsBool = true}}
+            {{> talent-selection ancestryBonusTalentsBool=true talents=advancementData.talents talentsRemaining=ancestryBonusTalents}}
         {{/if}}
 
         <footer class="form-footer flexrow">

@@ -2,7 +2,7 @@
 <section class="choice-section">
     <h3>{{localize "cosmere-level-wizard.ChoiceTitle"}}</h3>
     <p class="section-description">
-        {{localize "cosmere-level-wizard.ChoiceDescription" count=skillRanksOrTalents}}
+        {{localize "cosmere-level-wizard.ChoiceDescription" count=@root.advancementData.skillRanksOrTalents}}
     </p>
     <div class="choice-options">
         <label class="choice-option">
@@ -12,7 +12,7 @@
                 value="skillRanks"
                 checked
             />
-            <span>{{localize "cosmere-level-wizard.ChooseSkillRanks" count=skillRanksOrTalents}}</span>
+            <span>{{localize "cosmere-level-wizard.ChooseSkillRanks" count=@root.advancementData.skillRanksOrTalents}}</span>
         </label>
         <label class="choice-option">
             <input
@@ -20,15 +20,15 @@
                 name="choice"
                 value="talents"
             />
-            <span>{{localize "cosmere-level-wizard.ChooseTalents" count=skillRanksOrTalents}}</span>
+            <span>{{localize "cosmere-level-wizard.ChooseTalents" count=@root.advancementData.skillRanksOrTalents}}</span>
         </label>
     </div>
 
     <div class="choice-content skill-ranks-choice" data-choice="skillRanks">
-        {{> skill-increase}}
+        {{> skill-increase skillRanks=@root.advancementData.skillRanksOrTalents}}
     </div>
 
     <div class="choice-content talents-choice hidden" data-choice="talents">
-        {{> talent-selection}}
+        {{> talent-selection talents=@root.advancementData.skillRanksOrTalents talentsRemaining=@root.talentsRemaining}}
     </div>
 </section>
