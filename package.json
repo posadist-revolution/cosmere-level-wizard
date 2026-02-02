@@ -1,9 +1,9 @@
 {
-	"name": "cosmere-level-wizard",
-	"version": "1.0.0",
-	"private": true,
-	"type": "module",
-	"scripts": {
+    "name": "cosmere-level-wizard",
+    "version": "1.0.1",
+    "private": true,
+    "type": "module",
+    "scripts": {
         "build": "npx rollup -c",
         "build:watch": "npx rollup -c -w",
         "build:release": "npm run build && npm run zip",
@@ -13,8 +13,8 @@
         "link": "node ./scripts/link-foundry",
         "zip": "node ./scripts/zip",
         "postinstall": "npm run build"
-	},
-	"devDependencies": {
+    },
+    "devDependencies": {
         "@eslint/js": "^9.9.0",
         "@foundryvtt/foundryvtt-cli": "^1.0.3",
         "@league-of-foundry-developers/foundry-vtt-types": "github:League-of-Foundry-Developers/foundry-vtt-types#main",
@@ -39,7 +39,7 @@
         "tslib": "^2.6.3",
         "typescript": "^5.5.4",
         "typescript-eslint": "^8.2.0"
-	},
+    },
     "engines": {
         "node": "^20"
     },
