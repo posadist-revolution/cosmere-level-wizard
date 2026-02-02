@@ -10,7 +10,8 @@
             "ResourceIncrease": "Base {res} maximum increases from {old} to {new}",
             "LiftingCapacityIncrease": "Base lifting capacity increases from {old} to {new}",
             "CarryingCapacityIncrease": "Base carrying capacity increases from {old} to {new}",
-            "UnarmedDmgIncrease": "Base unarmed damage increases from {old} to {new}"
+            "UnarmedDmgIncrease": "Base unarmed damage increases from {old} to {new}",
+            "MoveRateIncrease": "Base movement rate increases from {old} to {new}"
         },
         "PointsRemaining": "Points Remaining",
         "Health": "Health Increase",

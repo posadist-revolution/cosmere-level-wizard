@@ -3,5 +3,11 @@
     <p class="section-description">
         {{localize "cosmere-level-wizard.AttributeSecondaryDescription" attr="Speed"}}
     </p>
-    {{!-- TODO: Secondary Speed Effects --}}
+    {{#if (doesAttrTableChange attrVal attrInc)}}
+    <p class = "spd-move-table-increase">
+        {{localize "cosmere-level-wizard.AttributeSecondaryDetails.MoveRateIncrease"
+            old=(attrTableNewValue 'mov' attrVal)
+            new=(attrTableNewValue 'mov' (add attrVal attrInc))}}
+    </p>
+    {{/if}}
 </section>
