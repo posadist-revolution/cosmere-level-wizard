@@ -12,7 +12,8 @@
         "lint:fix": "eslint --fix",
         "link": "node ./scripts/link-foundry",
         "zip": "node ./scripts/zip",
-        "postinstall": "npm run build"
+        "postinstall": "npm run build",
+        "version": "node ./scripts/version-change"
     },
     "devDependencies": {
         "@eslint/js": "^9.9.0",
