@@ -200,7 +200,7 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
         const attrId = $(event.target!)
             .closest('[data-id]')
             .data('id');
-        console.log(`${MODULE_ID}: Decreasing attribute ${attrId}`)
+        // console.log(`${MODULE_ID}: Decreasing attribute ${attrId}`)
         if (!attrId) return;
         if(this.choices.attributes![attrId] > 0 ){
             this.choices.attributes![attrId] -= 1;

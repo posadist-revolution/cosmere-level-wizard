@@ -43,8 +43,8 @@ export const preloadHandlebarsTemplates = async function () {
 
 Handlebars.registerHelper('levelingSkillsGroupContext', (actor: CosmereActor, groupId: AttributeGroup) => {
 
-    console.log(`${MODULE_ID}: Group ID`);
-    console.log(groupId);
+    // console.log(`${MODULE_ID}: Group ID`);
+    // console.log(groupId);
     // Get the attribute group config
     const groupConfig: AttributeGroupConfig = CONFIG.COSMERE.attributeGroups[groupId];
 
@@ -167,8 +167,8 @@ Handlebars.registerHelper('levelingGetFromKey', (record: Record<string, any>, ke
 });
 
 Handlebars.registerHelper('levelComplete', (context) => {
-    console.log(`${MODULE_ID}: Checking level complete. Context:`);
-    console.log(context);
+    // console.log(`${MODULE_ID}: Checking level complete. Context:`);
+    // console.log(context);
     let levelComplete: Boolean = context.attributePointsRemaining == 0;
     if(!context.advancementData.skillRanksOrTalents)
     {
@@ -186,7 +186,7 @@ Handlebars.registerHelper('levelComplete', (context) => {
             // levelComplete = levelComplete && context.talentsRemaining == 0;
         }
     }
-    console.log(`${MODULE_ID}: Level complete = ${levelComplete}`);
+    // console.log(`${MODULE_ID}: Level complete = ${levelComplete}`);
     return levelComplete
 });
 
