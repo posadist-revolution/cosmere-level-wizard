@@ -4,6 +4,8 @@
         "LevelingUp": "Leveling up from level",
         "AttributePoints": "Attribute Points",
         "AttributePointsDescription": "You gain {points} attribute point(s) to distribute among your attributes.",
+        "AttributeSecondary": "{attr} Increase Results",
+        "AttributeSecondaryDescription": "Increasing your {attr} changes the following values:",
         "PointsRemaining": "Points Remaining",
         "Health": "Health Increase",
         "HealthIncludeStrength": "You gain {health} health plus your Strength attribute.",

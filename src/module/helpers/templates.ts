@@ -1,4 +1,4 @@
-import { Attribute, AttributeGroup, Skill } from "@src/declarations/cosmere-rpg/types/cosmere";
+import { Attribute, AttributeGroup, Resource, Skill } from "@src/declarations/cosmere-rpg/types/cosmere";
 import { MODULE_ID } from "../constants";
 import { AttributeGroupConfig } from "@src/declarations/cosmere-rpg/types/config";
 
@@ -13,6 +13,14 @@ export const TEMPLATES = {
     COSMERE_SKILLS_GROUP: TEMPLATE_PATH_START + '/cosmere-rpg/cosmere-skills-group.hbs',
     COSMERE_SKILL: TEMPLATE_PATH_START + '/cosmere-rpg/cosmere-skill.hbs',
     COSMERE_ATTRIBUTES: TEMPLATE_PATH_START + '/cosmere-rpg/cosmere-attributes.hbs',
+    SECONDARY_ALL: TEMPLATE_PATH_START + '/secondary-attribute-effects/secondary-all.hbs',
+    SECONDARY_SOME: TEMPLATE_PATH_START + '/secondary-attribute-effects/secondary-some.hbs',
+    SECONDARY_STR: TEMPLATE_PATH_START + '/secondary-attribute-effects/secondary-str.hbs',
+    SECONDARY_SPD: TEMPLATE_PATH_START + '/secondary-attribute-effects/secondary-spd.hbs',
+    SECONDARY_INT: TEMPLATE_PATH_START + '/secondary-attribute-effects/secondary-int.hbs',
+    SECONDARY_WIL: TEMPLATE_PATH_START + '/secondary-attribute-effects/secondary-wil.hbs',
+    SECONDARY_AWA: TEMPLATE_PATH_START + '/secondary-attribute-effects/secondary-awa.hbs',
+    SECONDARY_PRE: TEMPLATE_PATH_START + '/secondary-attribute-effects/secondary-pre.hbs',
 } as const;
 
 /**
@@ -181,3 +189,66 @@ Handlebars.registerHelper('levelComplete', (context) => {
     console.log(`${MODULE_ID}: Level complete = ${levelComplete}`);
     return levelComplete
 });
+
+Handlebars.registerHelper('shouldRenderAttrSecondary', (attrId: Attribute, attrChoices: Record<Attribute, number>, actor: CharacterActor ) => {
+    // If we didn't increase this attribute, default to false
+    if(attrChoices[attrId] == 0){
+        return false;
+    }
+
+    let attrIncrease = attrChoices[attrId];
+
+    switch(attrId){
+        case Attribute.Strength: // Strength changes health, so always display it
+            return true;
+
+        case Attribute.Speed: // Display if movement rate changes
+            let speedValue = actor.system.attributes[attrId].value;
+
+            return doesAttrTableChange(speedValue, attrIncrease);
+
+        case Attribute.Intellect: // Intellect grants an expertise, so always display it
+            return true;
+
+        case Attribute.Willpower: // Willpower changes focus, so always display it when it's changed
+            return true;
+
+        case Attribute.Awareness: // Display if investiture increases or senses range changes
+            let awarenessValue = actor.system.attributes[attrId].value;
+
+            // Check to see if investiture increased
+            if (actor.system.resources[Resource.Investiture].max > 0){
+                // Return true if the actor's investiture increases
+                if(awarenessValue + attrIncrease > actor.system.attributes[Attribute.Presence].value){
+                    return true;
+                }
+            }
+
+            // If investiture hasn't increased, check to see if the senses range has changed
+            return doesAttrTableChange(awarenessValue, attrIncrease);
+
+        case Attribute.Presence: // Display if investiture increases or connections table changes
+            let presenceValue = actor.system.attributes[attrId].value;
+
+            // Check to see if investiture increased
+            if (actor.system.resources[Resource.Investiture].max > 0){
+                // Return true if the actor's investiture increases
+                if(presenceValue + attrIncrease > actor.system.attributes[Attribute.Awareness].value){
+                    return true;
+                }
+            }
+
+            // If investiture hasn't increased, check to see if the connections table has changed
+            return doesAttrTableChange(presenceValue, attrIncrease);
+
+        default:
+            return false;
+    }
+});
+
+function doesAttrTableChange(attrValue: number, attrIncrease: number){
+    if(attrValue >= 9){
+        return false;
+    }
+    return ((attrValue + attrIncrease) % 2 == 1)
+}

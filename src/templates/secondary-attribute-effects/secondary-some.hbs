@@ -1,0 +1,18 @@
+{{#if (shouldRenderAttrSecondary "str" @root.choices.attributes, @root.actor)}}
+    {{> secondary-str}}
+{{/if}}
+{{#if (shouldRenderAttrSecondary "spd" @root.choices.attributes, @root.actor)}}
+    {{> secondary-spd}}
+{{/if}}
+{{#if (shouldRenderAttrSecondary "int" @root.choices.attributes, @root.actor)}}
+    {{> secondary-int}}
+{{/if}}
+{{#if (shouldRenderAttrSecondary "wil" @root.choices.attributes, @root.actor)}}
+    {{> secondary-wil}}
+{{/if}}
+{{#if (shouldRenderAttrSecondary "awa" @root.choices.attributes, @root.actor)}}
+    {{> secondary-awa}}
+{{/if}}
+{{#if (shouldRenderAttrSecondary "pre" @root.choices.attributes, @root.actor)}}
+    {{> secondary-pre}}
+{{/if}}
