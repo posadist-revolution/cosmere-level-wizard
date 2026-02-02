@@ -40,7 +40,7 @@
     }
   ],
   "url": "https://github.com/posadist-revolution/cosmere-level-wizard",
-  "manifest": "https://raw.githubusercontent.com/posadist-revolution/cosmere-level-wizard/src/module.json",
+  "manifest": "https://raw.githubusercontent.com/posadist-revolution/cosmere-level-wizard/refs/heads/main/src/module.json",
   "download": "https://github.com/posadist-revolution/cosmere-level-wizard/releases/download/release-1.0.1/cosmere-level-wizard-release-1.0.1.zip",
   "license": "LICENSE",
   "readme": "README.md"
