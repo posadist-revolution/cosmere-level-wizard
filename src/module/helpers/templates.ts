@@ -1,6 +1,7 @@
 import { Attribute, AttributeGroup, Resource, Skill } from "@src/declarations/cosmere-rpg/types/cosmere";
 import { MODULE_ID } from "../constants";
 import { AttributeGroupConfig } from "@src/declarations/cosmere-rpg/types/config";
+import { ActorAttrSecondaryTable, awarenessToSensesRange, getHealthIncreaseFromStrIncreaseAndLevel, speedToMovementRate, strengthToCarryingCapacity, strengthToLiftingCapacity, strengthToUnarmedDamage, willpowerToRecoveryDie } from "./actor";
 
 const TEMPLATE_PATH_START = `modules/${MODULE_ID}/templates`
 export const TEMPLATES = {
@@ -162,6 +163,14 @@ function prepareAttribute(actor: CosmereActor, attrId: Attribute) {
     };
 }
 
+Handlebars.registerHelper('levelingAttrSecondaryContext', (attrId: Attribute, actor: CharacterActor, choices: any) => {
+    return {
+        actor: actor,
+        attrVal: actor.system.attributes[attrId].value,
+        attrInc: choices.attributes[attrId]
+    }
+});
+
 Handlebars.registerHelper('levelingGetFromKey', (record: Record<string, any>, key: string) => {
     return record[key];
 });
@@ -252,3 +261,32 @@ function doesAttrTableChange(attrValue: number, attrIncrease: number){
     }
     return ((attrValue + attrIncrease) % 2 == 1)
 }
+
+Handlebars.registerHelper('doesAttrTableChange', doesAttrTableChange);
+
+Handlebars.registerHelper('doesUnarmedDmgChange', (attrValue, attrIncrease) => {
+    return (strengthToUnarmedDamage(attrValue) != strengthToUnarmedDamage(attrValue + attrIncrease));
+})
+
+Handlebars.registerHelper("attrTableNewValue", (table: ActorAttrSecondaryTable, attrValue) => {
+    switch(table){
+        case ActorAttrSecondaryTable.RecoveryDie:
+            return willpowerToRecoveryDie(attrValue);
+        case ActorAttrSecondaryTable.LiftingCapacity:
+            return strengthToLiftingCapacity(attrValue);
+        case ActorAttrSecondaryTable.CarryingCapacity:
+            return strengthToCarryingCapacity(attrValue);
+        case ActorAttrSecondaryTable.MovementRate:
+            return speedToMovementRate(attrValue);
+        case ActorAttrSecondaryTable.SensesRange:
+            return awarenessToSensesRange(attrValue);
+        case ActorAttrSecondaryTable.UnarmedDmg:
+            return strengthToUnarmedDamage(attrValue);
+        default:
+            throw Error(`${MODULE_ID}: Invalid secondary attribute table: ${table}`);
+    }
+});
+
+Handlebars.registerHelper("currentLevelHealthIncFromStrInc", (currentLevel: number, strInc: number) => {
+    return getHealthIncreaseFromStrIncreaseAndLevel(currentLevel, strInc);
+});

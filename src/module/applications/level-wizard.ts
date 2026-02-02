@@ -7,11 +7,12 @@ import { BaseActorSheetRenderContext } from "@src/declarations/cosmere-rpg/appli
 import { MODULE_ID } from "../constants";
 import { Attribute, AttributeGroup, Resource, Skill } from "@src/declarations/cosmere-rpg/types/cosmere";
 import { MouseButton } from '@src/declarations/cosmere-rpg/types/utils';
+import { getHealthIncreaseFromStrIncreaseAndLevel } from "../helpers/actor";
 
 interface LevelUpChoices {
-    attributes?: Record<string, number>;
-    skills?: Record<string, number>;
-    talent?: string;
+    attributes: Record<string, number>;
+    skills: Record<string, number>;
+    talent: string;
     choice?: 'skillRanks' | 'talents';
 }
 
@@ -21,7 +22,11 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
     declare actor: CharacterActor;
     declare advancementData: AdvancementRuleConfig;
     private submitted = false;
-    private choices: LevelUpChoices = {};
+    private choices: LevelUpChoices = {
+        attributes: {},
+        skills: {},
+        talent: "",
+    };
     private skillRanksRemaining: number;
     private attributePointsRemaining: number;
     private talentsRemaining: number;
@@ -74,6 +79,14 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
                     TEMPLATES.HEALTH_INCREASE,
                     TEMPLATES.SKILL_INCREASE,
                     TEMPLATES.TALENT_SELECTION,
+                    TEMPLATES.SECONDARY_ALL,
+                    TEMPLATES.SECONDARY_SOME,
+                    TEMPLATES.SECONDARY_STR,
+                    TEMPLATES.SECONDARY_SPD,
+                    TEMPLATES.SECONDARY_INT,
+                    TEMPLATES.SECONDARY_WIL,
+                    TEMPLATES.SECONDARY_AWA,
+                    TEMPLATES.SECONDARY_PRE,
                 ]
             },
 
@@ -335,6 +348,9 @@ export class LevelWizard extends foundry.applications.api.HandlebarsApplicationM
             if (this.advancementData.healthIncludeStrength) {
                 newHealthTotal += this.actor.system.attributes[Attribute.Strength].value;
             }
+        }
+        if(this.choices.attributes![Attribute.Strength] > 0){
+            newHealthTotal += getHealthIncreaseFromStrIncreaseAndLevel(this.actor.system.level, this.choices.attributes[Attribute.Strength]);
         }
 
         return {

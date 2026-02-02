@@ -1,7 +1,36 @@
+{{log "Rendering secondary str"}}
+{{log this}}
+{{log attrVal}}
+{{log attrInc}}
 <section class="attribute-secondary" data-attrId="str">
     <h3>{{localize "cosmere-level-wizard.AttributeSecondary" attr="Strength"}}</h3>
     <p class="section-description">
         {{localize "cosmere-level-wizard.AttributeSecondaryDescription" attr="Strength"}}
     </p>
     {{!-- TODO: Secondary Strength Effects --}}
+    <p class = "str-health-increase">
+        {{localize "cosmere-level-wizard.AttributeSecondaryDetails.ResourceIncrease"
+            res="health"
+            old=actor.system.resources.hea.max.derived
+            new=(add (currentLevelHealthIncFromStrInc actor.system.level attrInc) actor.system.resources.hea.max.derived)}}
+    </p>
+    {{#if (doesAttrTableChange attrVal attrInc)}}
+    <p class = "str-lift-table-increase">
+        {{localize "cosmere-level-wizard.AttributeSecondaryDetails.LiftingCapacityIncrease"
+            old=(attrTableNewValue 'lif' attrVal)
+            new=(attrTableNewValue 'lif' (add attrVal attrInc))}}
+    </p>
+    <p class = "str-carry-table-increase">
+        {{localize "cosmere-level-wizard.AttributeSecondaryDetails.CarryingCapacityIncrease"
+            old=(attrTableNewValue 'car' attrVal)
+            new=(attrTableNewValue 'car' (add attrVal attrInc))}}
+    </p>
+    {{/if}}
+    {{#if (doesUnarmedDmgChange attrVal attrInc)}}
+    <p class = "str-unarmed-dmg-increase">
+        {{localize "cosmere-level-wizard.AttributeSecondaryDetails.UnarmedDmgIncrease"
+            old=(attrTableNewValue 'una' attrVal)
+            new=(attrTableNewValue 'una' (add attrVal attrInc))}}
+    </p>
+    {{/if}}
 </section>
