@@ -3,5 +3,12 @@
     <p class="section-description">
         {{localize "cosmere-level-wizard.AttributeSecondaryDescription" attr="Presence"}}
     </p>
-    {{!-- TODO: Secondary Presence Effects --}}
+    {{#if (doesInvestitureIncrease actor "pre" attrInc)}}
+    <p class = "pre-inv-increase">
+        {{localize "cosmere-level-wizard.AttributeSecondaryDetails.ResourceIncrease"
+            res="investiture"
+            old=actor.system.resources.inv.max.derived
+            new=(add attrInc actor.system.resources.inv.max.derived)}}
+    </p>
+    {{/if}}
 </section>
