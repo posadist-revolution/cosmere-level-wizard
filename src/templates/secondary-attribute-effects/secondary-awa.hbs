@@ -3,12 +3,12 @@
     <p class="section-description">
         {{localize "cosmere-level-wizard.AttributeSecondaryDescription" attr="Awareness"}}
     </p>
-    {{#if (doesInvestitureIncrease actor "awa" attrInc)}}
+    {{#if (doesInvestitureChange actor "awa" attrInc)}}
     <p class = "awa-inv-increase">
         {{localize "cosmere-level-wizard.AttributeSecondaryDetails.ResourceIncrease"
             res="investiture"
-            old=actor.system.resources.inv.max.derived
-            new=(add attrInc actor.system.resources.inv.max.derived)}}
+            old=actor.system.resources.inv.max.override
+            new=(add attrInc actor.system.resources.inv.max.override)}}
     </p>
     {{/if}}
     {{#if (doesAttrTableChange attrVal attrInc)}}

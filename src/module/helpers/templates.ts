@@ -239,7 +239,7 @@ Handlebars.registerHelper('shouldRenderAttrSecondary', (attrId: Attribute, attrC
 
 function doesInvestitureChange(actor: CharacterActor, attr: Attribute, attrIncrease: number){
     // If the actor doesn't have investiture enabled, always return false
-    if (actor.system.resources[Resource.Investiture].max > 0){
+    if (actor.system.resources[Resource.Investiture].max.override > 0){
         let presenceValue = actor.system.attributes[Attribute.Presence].value;
         let awarenessValue = actor.system.attributes[Attribute.Awareness].value;
         if(attr == Attribute.Presence){
