@@ -12,7 +12,8 @@
             "CarryingCapacityIncrease": "Base carrying capacity increases from {old} to {new}",
             "UnarmedDmgIncrease": "Base unarmed damage increases from {old} to {new}",
             "MoveRateIncrease": "Base movement rate increases from {old} to {new}",
-            "RecoveryDieIncrease": "Recovery die increases from 1{old} to 1{new}"
+            "RecoveryDieIncrease": "Recovery die increases from 1{old} to 1{new}",
+            "SensesRangeIncrease": "Senses range increases from {old} to {new}"
         },
         "PointsRemaining": "Points Remaining",
         "Health": "Health Increase",
