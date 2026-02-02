@@ -225,35 +225,32 @@ Handlebars.registerHelper('shouldRenderAttrSecondary', (attrId: Attribute, attrC
         case Attribute.Awareness: // Display if investiture increases or senses range changes
             let awarenessValue = actor.system.attributes[attrId].value;
 
-            // Check to see if investiture increased
-            if (actor.system.resources[Resource.Investiture].max > 0){
-                // Return true if the actor's investiture increases
-                if(awarenessValue + attrIncrease > actor.system.attributes[Attribute.Presence].value){
-                    return true;
-                }
-            }
+            // Return whether either the attribute table or the investiture value has changed
+            return (doesAttrTableChange(awarenessValue, attrIncrease) ||
+                    doesInvestitureChange(actor, attrId, attrIncrease));
 
-            // If investiture hasn't increased, check to see if the senses range has changed
-            return doesAttrTableChange(awarenessValue, attrIncrease);
-
-        case Attribute.Presence: // Display if investiture increases or connections table changes
-            let presenceValue = actor.system.attributes[attrId].value;
-
-            // Check to see if investiture increased
-            if (actor.system.resources[Resource.Investiture].max > 0){
-                // Return true if the actor's investiture increases
-                if(presenceValue + attrIncrease > actor.system.attributes[Attribute.Awareness].value){
-                    return true;
-                }
-            }
-
-            // If investiture hasn't increased, check to see if the connections table has changed
-            return doesAttrTableChange(presenceValue, attrIncrease);
+        case Attribute.Presence: // Display if investiture increases
+            return doesInvestitureChange(actor, attrId, attrIncrease);
 
         default:
             return false;
     }
 });
+
+function doesInvestitureChange(actor: CharacterActor, attr: Attribute, attrIncrease: number){
+    // If the actor doesn't have investiture enabled, always return false
+    if (actor.system.resources[Resource.Investiture].max > 0){
+        let presenceValue = actor.system.attributes[Attribute.Presence].value;
+        let awarenessValue = actor.system.attributes[Attribute.Awareness].value;
+        if(attr == Attribute.Presence){
+            return (presenceValue + attrIncrease > awarenessValue);
+        }
+        else{
+            return (awarenessValue + attrIncrease > presenceValue);
+        }
+    }
+    else return false;
+}
 
 function doesAttrTableChange(attrValue: number, attrIncrease: number){
     if(attrValue >= 9){
@@ -263,6 +260,8 @@ function doesAttrTableChange(attrValue: number, attrIncrease: number){
 }
 
 Handlebars.registerHelper('doesAttrTableChange', doesAttrTableChange);
+
+Handlebars.registerHelper('doesInvestitureChange', doesInvestitureChange);
 
 Handlebars.registerHelper('doesUnarmedDmgChange', (attrValue, attrIncrease) => {
     return (strengthToUnarmedDamage(attrValue) != strengthToUnarmedDamage(attrValue + attrIncrease));
