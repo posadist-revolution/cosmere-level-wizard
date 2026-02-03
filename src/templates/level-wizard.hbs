@@ -12,6 +12,13 @@
             {{> attribute-increase}}
         {{/if}}
         {{!-- TODO: Add ability to display or choose options from attribute increase --}}
+        {{#if (eq newLevel 1)}}
+            {{> secondary-all}}
+        {{else}}
+        {{#if advancementData.attributePoints}}
+            {{> secondary-some}}
+        {{/if}}
+        {{/if}}
 
         {{#if health}}
             {{> health-increase}}

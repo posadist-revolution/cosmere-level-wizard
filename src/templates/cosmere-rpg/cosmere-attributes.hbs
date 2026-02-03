@@ -1,9 +1,6 @@
-{{log "Attribute section"}}
-{{log this}}
 <app-actor-attributes>
 <div class="attributes attribute-groups flexrow">
     {{#each attributeGroups as |attrGroup|}}
-    {{log this}}
     <div class="attribute-group" data-id="{{attrGroup.id}}">
         {{!-- Header --}}
         <span class="label">
@@ -13,7 +10,6 @@
         {{!-- Attributes and defense --}}
         <section class="attributes flexrow">
             {{#with attrGroup.attributes.[0] as |attribute|}}
-            {{log this}}
             <div class="sheet-stack attribute flexcol" data-id="{{attribute.id}}">
                 <div class="container left">
                     <div class="background"></div>
@@ -41,11 +37,6 @@
             <div class="sheet-stack defense">
                 <span class="label">{{localize "COSMERE.Actor.Sheet.Attributes.Defense"}}</span>
                 <div class="container">
-                    {{log this}}
-                    {{log lAttribute.id}}
-                    {{log rAttribute.id}}
-                    {{log (levelingGetFromKey @root.choices.attributes lAttribute.id)}}
-                    {{log (levelingGetFromKey @root.choices.attributes rAttribute.id)}}
                     <div class="background"></div>
                     <div class="border"></div>
                     <span class="value {{#if (gt (add lAttributeChoice rAttributeChoice) 0)}}choice{{/if}}">

@@ -1,0 +1,14 @@
+<section class="attribute-secondary" data-attrId="pre">
+    <h3>{{localize "cosmere-level-wizard.AttributeSecondary" attr="Presence"}}</h3>
+    <p class="section-description">
+        {{localize "cosmere-level-wizard.AttributeSecondaryDescription" attr="Presence"}}
+    </p>
+    {{#if (doesInvestitureChange actor "pre" attrInc)}}
+    <p class = "pre-inv-increase">
+        {{localize "cosmere-level-wizard.AttributeSecondaryDetails.ResourceIncrease"
+            res="investiture"
+            old=actor.system.resources.inv.max.override
+            new=(add attrInc actor.system.resources.inv.max.override)}}
+    </p>
+    {{/if}}
+</section>

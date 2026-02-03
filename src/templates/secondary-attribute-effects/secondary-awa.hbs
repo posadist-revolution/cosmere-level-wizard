@@ -1,0 +1,21 @@
+<section class="attribute-secondary" data-attrId="awa">
+    <h3>{{localize "cosmere-level-wizard.AttributeSecondary" attr="Awareness"}}</h3>
+    <p class="section-description">
+        {{localize "cosmere-level-wizard.AttributeSecondaryDescription" attr="Awareness"}}
+    </p>
+    {{#if (doesInvestitureChange actor "awa" attrInc)}}
+    <p class = "awa-inv-increase">
+        {{localize "cosmere-level-wizard.AttributeSecondaryDetails.ResourceIncrease"
+            res="investiture"
+            old=actor.system.resources.inv.max.override
+            new=(add attrInc actor.system.resources.inv.max.override)}}
+    </p>
+    {{/if}}
+    {{#if (doesAttrTableChange attrVal attrInc)}}
+    <p class = "awa-senses-table-increase">
+        {{localize "cosmere-level-wizard.AttributeSecondaryDetails.SensesRangeIncrease"
+            old=(attrTableNewValue 'sen' attrVal)
+            new=(attrTableNewValue 'sen' (add attrVal attrInc))}}
+    </p>
+    {{/if}}
+</section>
