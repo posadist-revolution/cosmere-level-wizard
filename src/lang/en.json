@@ -13,7 +13,9 @@
             "UnarmedDmgIncrease": "Base unarmed damage increases from {old} to {new}",
             "MoveRateIncrease": "Base movement rate increases from {old} to {new}",
             "RecoveryDieIncrease": "Recovery die increases from 1{old} to 1{new}",
-            "SensesRangeIncrease": "Senses range increases from {old} to {new}"
+            "SensesRangeIncrease": "Senses range increases from {old} to {new}",
+            "GainExpertise": "Choose {new} expertise(s) to gain",
+            "GainExpertiseNote": "Expertise(s) must be selected separately from the character sheet after leveling up."
         },
         "PointsRemaining": "Points Remaining",
         "Health": "Health Increase",

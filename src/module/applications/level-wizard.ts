@@ -14,6 +14,7 @@ interface LevelUpChoices {
     skills: Record<string, number>;
     talent: string;
     choice?: 'skillRanks' | 'talents';
+    // expertises?: string[];
 }
 
 export class LevelWizard extends foundry.applications.api.HandlebarsApplicationMixin(

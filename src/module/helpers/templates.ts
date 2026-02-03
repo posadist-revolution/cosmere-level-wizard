@@ -116,11 +116,31 @@ Handlebars.registerHelper('levelingSkillContext', (actor: CosmereActor, skillId:
         }
 });
 
-Handlebars.registerHelper('levelingAttributesContext', (actor: CosmereActor, skillId: Skill) =>{
+Handlebars.registerHelper('levelingAttributesContext', (actor: CosmereActor, skillId: Skill) => {
     return {
         attributeGroups: (Object.keys(CONFIG.COSMERE.attributeGroups) as AttributeGroup[]).map((attrId) => prepareAttributeGroup(actor, attrId)),
     }
 });
+
+// Handlebars.registerHelper('levelingExpertisesContext', (actor: CharacterActor, expertiseChoices: string[], numExpertises: number) => {
+//     return {
+//         showSubmitButton: !this.liveUpdate,
+//         submitButtonLabel: this.submitButtonLabel,
+
+//         categories: this.availableTypes.map((type) => {
+//             const config = CONFIG.COSMERE.expertiseTypes[type];
+
+//             return {
+//                 type,
+//                 label: config.label,
+//                 icon: config.icon,
+//                 configuredExpertises:
+//                     this.getConfiguredExpertisesForType(type),
+//                 customExpertises: this.getCustomExpertisesForType(type),
+//             };
+//         }),
+//     }
+// });
 
 function prepareAttributeGroup(actor: CosmereActor, groupId: AttributeGroup) {
     // Get the attribute group config
