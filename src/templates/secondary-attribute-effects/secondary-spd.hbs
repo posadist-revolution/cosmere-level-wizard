@@ -1,0 +1,13 @@
+<section class="attribute-secondary" data-attrId="spd">
+    <h3>{{localize "cosmere-level-wizard.AttributeSecondary" attr="Speed"}}</h3>
+    <p class="section-description">
+        {{localize "cosmere-level-wizard.AttributeSecondaryDescription" attr="Speed"}}
+    </p>
+    {{#if (doesAttrTableChange attrVal attrInc)}}
+    <p class = "spd-move-table-increase">
+        {{localize "cosmere-level-wizard.AttributeSecondaryDetails.MoveRateIncrease"
+            old=(attrTableNewValue 'mov' attrVal)
+            new=(attrTableNewValue 'mov' (add attrVal attrInc))}}
+    </p>
+    {{/if}}
+</section>

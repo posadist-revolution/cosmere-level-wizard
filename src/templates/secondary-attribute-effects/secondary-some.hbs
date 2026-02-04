@@ -1,0 +1,20 @@
+{{log "Rendering secondary some"}}
+{{log this}}
+{{#if (shouldRenderAttrSecondary "str" @root.choices.attributes @root.actor)}}
+    {{> secondary-str (levelingAttrSecondaryContext "str" @root.actor @root.choices)}}
+{{/if}}
+{{#if (shouldRenderAttrSecondary "spd" @root.choices.attributes @root.actor)}}
+    {{> secondary-spd (levelingAttrSecondaryContext "spd" @root.actor @root.choices)}}
+{{/if}}
+{{#if (shouldRenderAttrSecondary "int" @root.choices.attributes @root.actor)}}
+    {{> secondary-int (levelingAttrSecondaryContext "int" @root.actor @root.choices)}}
+{{/if}}
+{{#if (shouldRenderAttrSecondary "wil" @root.choices.attributes @root.actor)}}
+    {{> secondary-wil (levelingAttrSecondaryContext "wil" @root.actor @root.choices)}}
+{{/if}}
+{{#if (shouldRenderAttrSecondary "awa" @root.choices.attributes @root.actor)}}
+    {{> secondary-awa (levelingAttrSecondaryContext "awa" @root.actor @root.choices)}}
+{{/if}}
+{{#if (shouldRenderAttrSecondary "pre" @root.choices.attributes @root.actor)}}
+    {{> secondary-pre (levelingAttrSecondaryContext "pre" @root.actor @root.choices)}}
+{{/if}}

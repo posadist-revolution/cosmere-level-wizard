@@ -1,0 +1,19 @@
+<section class="attribute-secondary" data-attrId="wil">
+    <h3>{{localize "cosmere-level-wizard.AttributeSecondary" attr="Willpower"}}</h3>
+    <p class="section-description">
+        {{localize "cosmere-level-wizard.AttributeSecondaryDescription" attr="Willpower"}}
+    </p>
+    <p class = "wil-focus-increase">
+        {{localize "cosmere-level-wizard.AttributeSecondaryDetails.ResourceIncrease"
+            res="focus"
+            old=actor.system.resources.foc.max.derived
+            new=(add attrInc actor.system.resources.foc.max.derived)}}
+    </p>
+    {{#if (doesAttrTableChange attrVal attrInc)}}
+    <p class = "wil-recovery-table-increase">
+        {{localize "cosmere-level-wizard.AttributeSecondaryDetails.RecoveryDieIncrease"
+            old=(attrTableNewValue 'rec' attrVal)
+            new=(attrTableNewValue 'rec' (add attrVal attrInc))}}
+    </p>
+    {{/if}}
+</section>
