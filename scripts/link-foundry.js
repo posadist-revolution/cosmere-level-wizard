@@ -52,7 +52,7 @@ const { dataPath } = await prompts({
 });
 
 // Construct path to symlink
-const symlinkPath = path.resolve(dataPath, 'modules', 'cosmere-rpg-workbench');
+const symlinkPath = path.resolve(dataPath, 'modules', 'cosmere-level-wizard');
 
 const stats = fs.statSync(symlinkPath, { throwIfNoEntry: false });
 if (stats) {
