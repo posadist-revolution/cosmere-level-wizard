@@ -1,8 +1,6 @@
-### Patch 1.0.1
-<sup>2026-02-02</sup>
-- Fixed level wizard not being scrollable
-- Fixed module.json having an incorrect manifest link
-- Made version incrementing easier
+### Patch 1.1.1
+<sup>2026-03-22</sup>
+- Fixed level-up button appearing multiple times on a sheet when edits happen on the sheet
 
 <br>
 
