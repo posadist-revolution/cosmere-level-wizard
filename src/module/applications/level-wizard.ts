@@ -384,6 +384,10 @@ export function activateLevelUpHooks(){
         if(!context.isEditMode){
             return true;
         }
+
+        if ($(element).find('.level-up-button').length > 0) {
+            return true;
+        }
         const levelUpButton = $('<button type="button" class="level-up-button">+</button>');
 
         // Finding level div
